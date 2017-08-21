@@ -23,7 +23,7 @@ class StorySummary extends React.Component {
     return (<div>
       {this.props.story.story}
       <hr />
-      <LinkWithContext to={location}>See all story</LinkWithContext>
+      <LinkWithContext to={location}>See more</LinkWithContext>
     </div>);
   }
 
