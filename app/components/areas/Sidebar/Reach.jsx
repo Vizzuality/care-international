@@ -97,7 +97,7 @@ class ReachSidebarArea extends React.Component {
                   formatter={(v) => v.toLocaleString()} />
                 <BarWrapper bar={ValueBar}
                   colorClass="overall"
-                  value={statistics["overall_direct_participants"] - statistics[`${program}_direct_participants`]}
+                  value={statistics["overall_direct_participants"]}
                   maxValue={statistics["overall_direct_participants"]}
                   formatter={(v) => v.toLocaleString()} />
               </li>
@@ -112,7 +112,7 @@ class ReachSidebarArea extends React.Component {
                   formatter={(v) => v.toLocaleString()} />
                 <BarWrapper bar={ValueBar}
                   colorClass="overall"
-                  value={statistics["overall_indirect_participants"] - statistics[`${program}_indirect_participants`]}
+                  value={statistics["overall_indirect_participants"]}
                   maxValue={statistics["overall_indirect_participants"]}
                   formatter={(v) => v.toLocaleString()} />
               </li>
