@@ -7,9 +7,14 @@
     align-items: flex-start;
 
     .right {
-      padding: 80px 75px;
+      padding: 40px 75px;
+
+      .wrapper {
+        margin-bottom: 1em;
+      }
+
       img {
-        margin-bottom: 3em;
+        margin-bottom: 2em;
       }
 
       p:not(:last-child) {

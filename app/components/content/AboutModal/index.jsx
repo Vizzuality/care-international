@@ -19,17 +19,19 @@ class AboutContent extends React.Component {
         <img src={momImage} alt="Mom" className="img-mom" />
       </div>
       <div className="right">
-        <img src={careImage} alt="CARE" className="img-care" />
-        <img src={careMomImage} alt="CARE" className="img-care-mom" />
-        <p>
-          In 2016, CARE and partners worked in 94 countries around the world to reach more than 80 million people directly through 1,044 development and humanitarian aid projects. CARE also reached 256 million people indirectly through its advocacy efforts, the replication of successful programs and scale-up of innovations.
-        </p>
-        <p>
-          As part of our <a target="_blank" href="https://insights.careinternational.org.uk/media/k2/attachments/CARE_2020_Program_Strategy-English.pdf">2020 Program Strategy goals</a>, CARE is committed to gathering evidence on lasting changes taking place in the lives of people living in poverty. To do this, we are tracking a set of 25 global indicators of change between 2014 and 2020. At present, we have been able to gather evidence in 56 countries so far. The data shows that CARE has contributed to significant improvements for 21 million people in those countries.
-        </p>
-        <p>
-          CARE is one of the leaders among international NGOs in comprehensively reporting the impact of its work around the world. Despite our best efforts to gather information across more than 1,000 projects in over 90 countries, some of the data presented may be incomplete.
-        </p>
+        <div className="wrapper">
+          <img src={careImage} alt="CARE" className="img-care" />
+          <img src={careMomImage} alt="CARE" className="img-care-mom" />
+          <p>
+            In 2016, CARE and partners worked in 94 countries around the world to reach more than 80 million people directly through 1,044 development and humanitarian aid projects. CARE also reached 256 million people indirectly through its advocacy efforts, the replication of successful programs and scale-up of innovations.
+          </p>
+          <p>
+            As part of our <a target="_blank" href="https://insights.careinternational.org.uk/media/k2/attachments/CARE_2020_Program_Strategy-English.pdf">2020 Program Strategy goals</a>, CARE is committed to gathering evidence on lasting changes taking place in the lives of people living in poverty. To do this, we are tracking a set of 25 global indicators of change between 2014 and 2020. At present, we have been able to gather evidence in 56 countries so far. The data shows that CARE has contributed to significant improvements for 21 million people in those countries.
+          </p>
+          <p>
+            CARE is one of the leaders among international NGOs in comprehensively reporting the impact of its work around the world. Despite our best efforts to gather information across more than 1,000 projects in over 90 countries, some of the data presented may be incomplete.
+          </p>
+        </div>
         <button className="primary" onClick={this.props.handleClose}>
           Discover more data
         </button>
