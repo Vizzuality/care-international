@@ -7,10 +7,14 @@
     align-items: flex-start;
 
     .right {
-      padding: 40px 75px;
+      padding: 40px 40px;
 
       .wrapper {
         margin-bottom: 1em;
+
+        a {
+          text-decoration: underline;
+        }
       }
 
       img {
