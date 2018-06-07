@@ -56,6 +56,7 @@ class SidebarArea extends React.Component {
       region,
       country,
       program,
+      year,
     } = this.props.navigation;
 
     if (!program) {
@@ -117,6 +118,7 @@ class SidebarArea extends React.Component {
         {mainView === "reach" && (<ReachSidebar
           program={program}
           country={country}
+          year={year}
           statistics={statistics}
           handleProgramChange={handleProgramChange}
           handleAboutDirectReachClick={handleAboutDirectReachClick}
@@ -139,6 +141,7 @@ class SidebarArea extends React.Component {
                 subView={subView}
                 region={region}
                 country={country}
+                year={year}
               >
                 See all program areas
               </AppLink>

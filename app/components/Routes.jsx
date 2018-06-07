@@ -9,8 +9,7 @@ class Routes extends React.Component {
     return (<Router>
       <Switch>
         <Redirect exact from="/" to="/2016/reach/countries" />
-        <Redirect exact from="/:year" to="/:year/reach/countries" />
-        <Redirect exact from="/:year/reach" to="/:year/reach/countries" />
+        <Redirect exact from="/reach" to="/2016/reach/countries" />
         <Redirect exact from="/reach/countries" to="/2016/reach/countries" />
 
         <Route exact path="/:year/reach/countries/:country?" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
