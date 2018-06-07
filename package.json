@@ -3,7 +3,7 @@
   "description": "Map based visualization that explores projects, initiatives and stories.",
   "version": "1.0.0",
   "engines": {
-    "node": "7.9.0"
+    "node": "8.11.2"
   },
   "author": "Vizzuality",
   "bugs": {
