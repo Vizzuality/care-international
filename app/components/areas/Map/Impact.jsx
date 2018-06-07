@@ -6,6 +6,7 @@ import ImpactLegend from "components/content/ImpactLegend";
 import StorySummary from "components/elements/StorySummary";
 import CircleSVG from "components/svg/Circle";
 import RhombusSVG from "components/svg/Rhombus";
+import { PruneCluster, PruneClusterForLeaflet } from 'exports-loader?PruneCluster,PruneClusterForLeaflet!prunecluster/dist/PruneCluster.js';
 
 const getSVGIcon = (SVGComponent, props) => {
   let { value, program, size, hideLabel } = props;
@@ -69,7 +70,9 @@ class ImpactMapArea extends React.Component {
       handleMapChange,
     } = this.props;
 
-    this.quantitativeMarkers = regions
+    // Quantitative Markers
+    this.quantitativeMarkers = window.L.layerGroup(
+      regions
       .filter((region) => region[`${program}_impact`] && !currentStory)
       .map((region) => {
         let marker =  window.L.marker([region.region_center_y, region.region_center_x], {
@@ -79,8 +82,8 @@ class ImpactMapArea extends React.Component {
             size: region[`${program}_size`],
             label: region.region || region.country,
           }),
-          zIndexOffset: 100,
-        }).addTo(this.context.map).on("click", () => {
+          zIndexOffset: -200,
+        }).on("click", () => {
           handleMapChange(region.region, region.country);
         });
 
@@ -113,29 +116,53 @@ class ImpactMapArea extends React.Component {
         });
 
         return marker;
+      })
+    );
 
+    // Qualitative Markers
+    const pruneCluster = new PruneClusterForLeaflet();
+
+    storiesByCountry
+      .filter((story) => (program === "overall" || story.outcomes.includes(program)) && (!currentStory || currentStory === story.story_number))
+      .forEach((story) => {
+        const marker = new PruneCluster.Marker(story.lat, story.lon);
+        marker.data.icon = getSVGIcon(CircleSVG, {
+          program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
+          size: 18,
+        });
+        marker.data.popup = this.getPopup(story);
+        pruneCluster.RegisterMarker(marker);
       });
 
-    this.qualitativeMarkers = storiesByCountry
-      .filter((story) => (program === "overall" || story.outcomes.includes(program)) && (!currentStory || currentStory == story.story_number))
-      .map((story) => {
-        return window.L.marker([story.lat, story.lon], {
-          icon: getSVGIcon(RhombusSVG, {
-            program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
-            size: 18,
-          }),
-          zIndexOffset: 200,
-        }).bindPopup(this.getPopup(story)).addTo(this.context.map);
-      });
+    this.qualitativeMarkers = window.L.layerGroup([pruneCluster]);
 
+    // Adding to map
+    this.context.map.addLayer(this.quantitativeMarkers);
+    this.context.map.addLayer(this.qualitativeMarkers);
+
+    // this.qualitativeMarkers = storiesByCountry
+    //   .filter((story) => (program === "overall" || story.outcomes.includes(program)) && (!currentStory || currentStory === story.story_number))
+    //   .map((story) => {
+    //     return window.L.marker([story.lat, story.lon], {
+    //       icon: getSVGIcon(RhombusSVG, {
+    //         program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
+    //         size: 18,
+    //       }),
+    //       zIndexOffset: 200,
+    //     }).bindPopup(this.getPopup(story)).addTo(this.context.map);
+    //   });
   }
 
   destroyMarkers() {
-    this.quantitativeMarkers.forEach((marker) => this.context.map.removeLayer(marker));
-    this.quantitativeMarkers = [];
+    this.context.map.removeLayer(this.quantitativeMarkers);
+    this.quantitativeMarkers = null;
+    // this.quantitativeMarkers.forEach((marker) => this.context.map.removeLayer(marker));
+    // this.quantitativeMarkers = [];
 
-    this.qualitativeMarkers.forEach((marker) => this.context.map.removeLayer(marker));
-    this.quantitativeMarkers = [];
+    this.context.map.removeLayer(this.qualitativeMarkers);
+    this.qualitativeMarkers = null;
+    // this.qualitativeMarkers.forEach((marker) => this.context.map.removeLayer(marker));
+    // this.quantitativeMarkers = [];
   }
 
   componentDidMount() {
