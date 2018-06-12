@@ -33,12 +33,13 @@ class ReachSidebarArea extends React.Component {
       country,
       statistics,
       handleProgramChange,
+      year,
     } = this.props;
 
     return (<div className="sidebar-content-reach">
 
       <AreaSummary
-        title="Projects and Initiatives in 2016"
+        title={`Projects and Initiatives in ${year}`}
         value={statistics[`${program}_projects_and_initiatives`]}
         program={program}
       />
@@ -46,7 +47,7 @@ class ReachSidebarArea extends React.Component {
       {!(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>
           <dt>
-            Participants reached in 2016
+            Participants reached in {year}
           </dt>
           <dd>
             <ul>

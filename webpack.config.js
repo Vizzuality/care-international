@@ -4,6 +4,10 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VirtualModulePlugin = require("virtual-module-webpack-plugin");
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 // given a layerid id, get a cartodb layer url
 const layerURL = (id) => `https://careinternational.carto.com/api/v2/viz/${id}/viz.json`;
 

@@ -18,10 +18,13 @@ class HeaderArea extends React.Component {
       <div className="menu">
         <ul className="menu">
           <li>
-            <NavLink to="/reach" activeClassName="active">reach</NavLink>
+            <NavLink to="/2016/reach/countries" activeClassName="active">Reach 2016</NavLink>
           </li>
           <li>
-            <NavLink to="/impact" activeClassName="active">impact</NavLink>
+            <NavLink to="/2017/reach/countries" activeClassName="active">Reach 2017</NavLink>
+          </li>
+          <li>
+            <NavLink to="/impact" activeClassName="active">Impact</NavLink>
           </li>
         </ul>
       </div>
