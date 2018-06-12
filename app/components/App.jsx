@@ -86,7 +86,7 @@ class App extends React.PureComponent {
     switch (navigation.mainView) {
 
       case "reach":
-        fetchReachData(navigation.region, navigation.country)
+        fetchReachData(navigation.region, navigation.country, navigation.year)
           .then(([statistics, bounds]) => {
             this.setState({
               loading: false,

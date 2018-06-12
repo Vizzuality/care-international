@@ -29,15 +29,16 @@ class ReachMapArea extends React.Component {
   }
 
   initCartoDBLayer() {
-    let {
+    const {
       subView,
       program,
+      year,
       handleMapChange,
     } = this.props;
 
     let sql = subView === "countries" ?
-      getReachMapCountriesSQL(program) :
-      getReachMapRegionsSQL(program);
+      getReachMapCountriesSQL(program, year) :
+      getReachMapRegionsSQL(program, year);
 
     let interactivity = subView === "countries" ?
       "bucket, country, region, data" :
@@ -120,14 +121,15 @@ class ReachMapArea extends React.Component {
   }
 
   render() {
-    let {
+    const {
       subView,
       program,
+      year,
     } = this.props;
 
     return (<div className="map-area-content">
       <div id="legend" className="choropleth">
-        <ReachLegend subView={subView} program={program} />
+        <ReachLegend subView={subView} program={program} year={year} />
       </div>
     </div>);
   }

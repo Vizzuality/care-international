@@ -1,6 +1,11 @@
 import buckets from "resources/buckets.json";
 
-const escapeArg = (s) => s && s.replace("'", "''");
+const escapeArg = (s) => {
+  if (s && typeof s === 'string') {
+    return s.replace("'", "''");
+  }
+  return s;
+};
 
 const withEscapedArgs = (func) => (...args) => func(...args.map(escapeArg));
 
@@ -17,7 +22,9 @@ let getTextsSQL = withEscapedArgs(() => {
   return "SELECT * FROM messages";
 });
 
-const getReachMapCountriesSQL = withEscapedArgs((program) => {
+const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
+
+  const suffix = year === 2016 ? '' : year.toString();
 
   let directParticipantsVariable = reachVariables[program][0];
   let caseColumn = buckets.reach
@@ -37,11 +44,13 @@ const getReachMapCountriesSQL = withEscapedArgs((program) => {
     "category ILIKE '%member%' AS care_member",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data WHERE ${dataField} IS NOT NULL`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE ${dataField} IS NOT NULL`;
 
 });
 
-const getReachMapRegionsSQL = withEscapedArgs((program) => {
+const getReachMapRegionsSQL = withEscapedArgs((program, year = 2016) => {
+
+  const suffix = year === 2016 ? '' : year.toString();
 
   let directParticipantsVariable = `SUM(${reachVariables[program][0]})`;
   let caseColumn = buckets.reach
@@ -52,18 +61,21 @@ const getReachMapRegionsSQL = withEscapedArgs((program) => {
     .join(" ");
   let fields = [
     "regions_complete_geometries.the_geom_webmercator AS the_geom_webmercator",
-    "reach_data.region",
+    `reach_data${suffix}.region`,
     `'${program}' AS program`,
     "1 AS data",
     `CASE ${caseColumn} END AS bucket`,
     "false as care_member",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data INNER JOIN regions_complete_geometries ON reach_data.region = regions_complete_geometries.region GROUP BY reach_data.region, regions_complete_geometries.the_geom_webmercator`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${suffix} INNER JOIN regions_complete_geometries ON reach_data${suffix}.region = regions_complete_geometries.region GROUP BY reach_data${suffix}.region, regions_complete_geometries.the_geom_webmercator`;
 
 });
 
-const getReachStatisticsCountriesSQL = withEscapedArgs((country) => {
+const getReachStatisticsCountriesSQL = withEscapedArgs((country, year = 2016) => {
+
+  const suffix = year === 2016 ? '' : year.toString();
+
   let fields = [
     "fnscc_data::BOOL AS has_fnscc_data",
     "hum_data::BOOL AS has_hum_data",
@@ -104,10 +116,13 @@ const getReachStatisticsCountriesSQL = withEscapedArgs((country) => {
     "COALESCE(percent_srmh_women_indirect_participants, 0) * num_srmh_indirect_participants AS srmh_indirect_participants_women",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data WHERE country = '${country || "Total"}'`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE country = '${country || "Total"}'`;
 });
 
-const getReachStatisticsRegionsSQL = withEscapedArgs((region) => {
+const getReachStatisticsRegionsSQL = withEscapedArgs((region, year = 2016) => {
+
+  const suffix = year === 2016 ? '' : year.toString();
+
   let fields = [
     "true AS has_fnscc_data",
     "true AS has_hum_data",
@@ -147,7 +162,7 @@ const getReachStatisticsRegionsSQL = withEscapedArgs((region) => {
     "SUM(COALESCE(percent_srmh_women_indirect_participants, 0) * num_srmh_indirect_participants) AS srmh_indirect_participants_women",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data WHERE region = '${region}'`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE region = '${region}'`;
 });
 
 
@@ -161,7 +176,7 @@ const getImpactStatisticsSQL = withEscapedArgs((region, country) => {
     "ROUND(SUM(women_s_economic_empowerment)) AS wee_impact",
   ];
 
-  let query = `SELECT ${fields.join(", ")} FROM impact_data`;
+  let query = `SELECT ${fields.join(", ")} FROM impact_data2017`;
 
   if (country) {
     query += ` WHERE country = '${country}'`;
@@ -205,7 +220,7 @@ const getImpactRegionDataSQL = withEscapedArgs((region) => {
     subfields.push("country");
   }
 
-  let subquery = `SELECT ${subfields.join(", ")} FROM impact_data`;
+  let subquery = `SELECT ${subfields.join(", ")} FROM impact_data2017`;
 
 
   if (!region) {
@@ -241,7 +256,7 @@ const getImpactStoriesSQL = withEscapedArgs(() => {
     `SELECT ${fields.join(", ")}`,
     "FROM story s INNER JOIN (",
     `  SELECT story_number, ${bounds}`,
-    "  FROM story s INNER JOIN impact_data i ON s.iso = i.iso",
+    "  FROM story s INNER JOIN impact_data2017 i ON s.iso = i.iso",
     "  GROUP BY story_number",
     ") g ON s.story_number = g.story_number",
     "GROUP BY s.story_number",
