@@ -1,7 +1,6 @@
 import React from "react";
 
 import CircleSVG from "components/svg/Circle";
-import RhombusSVG from "components/svg/Rhombus";
 import buckets from "resources/buckets.json";
 
 import "./style.scss";
@@ -15,7 +14,7 @@ class ImpactLegend extends React.Component {
         <li>
           <ul>
             <li>
-              <RhombusSVG size={15} /> Qualitative
+              <CircleSVG size={15} /> Qualitative
             </li>
             <li>
               <CircleSVG size={15} /> Quantitative
@@ -24,7 +23,7 @@ class ImpactLegend extends React.Component {
         </li>
         <li>Population impacted (quantitative)</li>
         <li>
-          <ul>
+          <ul className="legend">
             <li>
               1
             </li>
