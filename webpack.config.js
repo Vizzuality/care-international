@@ -4,9 +4,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VirtualModulePlugin = require("virtual-module-webpack-plugin");
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+require("dotenv").config();
 
 // given a layerid id, get a cartodb layer url
 const layerURL = (id) => `https://careinternational.carto.com/api/v2/viz/${id}/viz.json`;
@@ -44,7 +42,8 @@ const basePlugins = [
 const productionPlugins = [
   new webpack.DefinePlugin({
     "process.env": {
-      NODE_ENV: JSON.stringify("production"),
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      GITHUB_PAGES_FOLDER: JSON.stringify(process.env.GITHUB_PAGES_FOLDER)
     },
   }),
   new webpack.optimize.UglifyJsPlugin({

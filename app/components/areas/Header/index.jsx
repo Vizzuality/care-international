@@ -13,18 +13,20 @@ class HeaderArea extends React.Component {
   };
 
   render() {
+    const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? '/care-international' : '';
+
     return (<div id="header">
 
       <div className="menu">
         <ul className="menu">
           <li>
-            <NavLink to="/2016/reach/countries" activeClassName="active">Reach 2016</NavLink>
+            <NavLink to={`${prefix}/2016/reach/countries`} activeClassName="active">Reach 2016</NavLink>
           </li>
           <li>
-            <NavLink to="/2017/reach/countries" activeClassName="active">Reach 2017</NavLink>
+            <NavLink to={`${prefix}/2017/reach/countries`} activeClassName="active">Reach 2017</NavLink>
           </li>
           <li>
-            <NavLink to="/impact" activeClassName="active">Impact</NavLink>
+            <NavLink to={`${prefix}/impact`} activeClassName="active">Impact</NavLink>
           </li>
         </ul>
       </div>

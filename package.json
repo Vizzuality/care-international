@@ -16,6 +16,7 @@
     "colors": "^1.1.2",
     "copy-to-clipboard": "^3.0.6",
     "exports-loader": "^0.7.0",
+    "gh-pages": "^1.2.0",
     "history": "^4.6.1",
     "install": "^0.11.0",
     "knex": "^0.13.0",
@@ -60,10 +61,9 @@
     "url": "git+ssh://git@github.com/Vizzuality/care-international.git"
   },
   "scripts": {
-    "build": "yarn run clean && NODE_ENV=production webpack",
-    "clean": "rm -rf dist/*",
-    "postinstall": "yarn run build",
-    "start": "NODE_ENV=development webpack-dev-server",
-    "lint": "eslint . --ext jsx,js"
+    "build": "NODE_ENV=production rm -rf dist/* && webpack",
+    "start": "webpack-dev-server",
+    "lint": "eslint . --ext jsx,js",
+    "deploy-staging": "NODE_ENV=production GITHUB_PAGES_FOLDER=true rm -rf dist/* && webpack --output-public-path='/care-international/' && gh-pages -d dist"
   }
 }
