@@ -114,7 +114,7 @@ class ReachMapArea extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.program !== this.props.program) {
+    if (prevProps.program !== this.props.program || prevProps.year !== this.props.year) {
       this.destroyCartoDBLayer();
       this.initCartoDBLayer();
     }
