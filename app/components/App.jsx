@@ -52,10 +52,11 @@ class App extends React.PureComponent {
     });
   }
 
-  handleMapChange(region, country) {
+  handleMapChange(region, country, year) {
     this.navigate({
       mainView: this.props.navigation.mainView,
       subView: this.props.navigation.subView,
+      year: year || this.props.navigation.year,
       region: region || this.props.navigation.region,
       country: country || this.props.navigation.country,
       program: this.props.navigation.program,
@@ -128,7 +129,7 @@ class App extends React.PureComponent {
   render() {
     let handlers = {
       handleProgramChange: (program) => this.handleProgramChange(program),
-      handleMapChange: (region, country) => this.handleMapChange(region, country),
+      handleMapChange: (region, country, year) => this.handleMapChange(region, country, year),
       handleCloseStory: () => this.handleCloseStory(),
       handleToggleModal: (modal) => this.handleToggleModal(modal),
     };

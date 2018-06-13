@@ -8,6 +8,10 @@ const getLocation = (options) => {
 
   let parts = [];
 
+  if (options.year) {
+    parts.push(encodeURIComponent(options.year));
+  }
+
   if (options.mainView) {
     parts.push(options.mainView);
   }

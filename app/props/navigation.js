@@ -10,6 +10,7 @@ const navigation = PropTypes.shape({
     "countries",
     "regions",
   ]),
+  year: PropTypes.string,
   region: PropTypes.string,
   country: PropTypes.string,
   story: PropTypes.string,

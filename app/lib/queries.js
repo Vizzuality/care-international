@@ -24,7 +24,7 @@ let getTextsSQL = withEscapedArgs(() => {
 
 const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
 
-  const suffix = year === 2016 ? '' : year.toString();
+  const suffix = year.toString() === '2016' ? '' : year.toString();
 
   let directParticipantsVariable = reachVariables[program][0];
   let caseColumn = buckets.reach
@@ -50,7 +50,7 @@ const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
 
 const getReachMapRegionsSQL = withEscapedArgs((program, year = 2016) => {
 
-  const suffix = year === 2016 ? '' : year.toString();
+  const suffix = year.toString() === '2016' ? '' : year.toString();
 
   let directParticipantsVariable = `SUM(${reachVariables[program][0]})`;
   let caseColumn = buckets.reach
@@ -74,7 +74,7 @@ const getReachMapRegionsSQL = withEscapedArgs((program, year = 2016) => {
 
 const getReachStatisticsCountriesSQL = withEscapedArgs((country, year = 2016) => {
 
-  const suffix = year === 2016 ? '' : year.toString();
+  const suffix = year.toString() === '2016' ? '' : year.toString();
 
   let fields = [
     "fnscc_data::BOOL AS has_fnscc_data",
@@ -121,7 +121,7 @@ const getReachStatisticsCountriesSQL = withEscapedArgs((country, year = 2016) =>
 
 const getReachStatisticsRegionsSQL = withEscapedArgs((region, year = 2016) => {
 
-  const suffix = year === 2016 ? '' : year.toString();
+  const suffix = year.toString() === '2016' ? '' : year.toString();
 
   let fields = [
     "true AS has_fnscc_data",

@@ -75,9 +75,9 @@ class ReachMapArea extends React.Component {
         }
 
         if (subView === "countries") {
-          handleMapChange(null, data.country);
+          handleMapChange(null, data.country, year);
         } else if (subView === "regions") {
-          handleMapChange(data.region);
+          handleMapChange(data.region, null, year);
         }
 
       });
