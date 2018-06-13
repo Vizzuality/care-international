@@ -77,7 +77,7 @@ class ReachSidebarArea extends React.Component {
       {(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>
           <dt>
-            Participants reached in 2016
+            Participants reached in {year}
           </dt>
           <dd>
             <ul>

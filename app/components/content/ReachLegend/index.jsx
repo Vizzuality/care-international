@@ -15,17 +15,19 @@ class ReachLegend extends React.Component {
   }
 
   render() {
+    const { year, program } = this.props;
+
     return (<div id="legend-reach">
       <ul>
         <li>
           <p>
-            Direct participants reached in 2016 by country
+            Direct participants reached in {year} by country
           </p>
         </li>
         <li>
           <ul className="scale">
             {buckets.reach.map((bucket, n) => {
-              return (<li key={n} className={`program-${this.props.program} bucket-${n + 1}`}>
+              return (<li key={n} className={`program-${program} bucket-${n + 1}`}>
                 <span>{bucket[2]}</span>
               </li>);
             })}
