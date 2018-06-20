@@ -6,7 +6,7 @@ import AreaSummary from "components/elements/AreaSummary";
 import RadioButton from "components/elements/Radio";
 import BarWrapper from "components/wrappers/Bar";
 import ValueBar from "components/elements/ValueBar";
-import RhombusSVG from "components/svg/Rhombus";
+import CircleSVG from "components/svg/Circle";
 
 import getLocation from "lib/location";
 import programs from "resources/programs.json";
@@ -101,7 +101,7 @@ class ImpactSidebarArea extends React.Component {
                     <li>
                       <ul className="outcomes">
                         {story.outcomes.map((outcome) => (<li key={outcome}>
-                          <RhombusSVG size={15} program={outcome} />
+                          <CircleSVG size={15} program={outcome} />
                           {outcome}
                         </li>))}
                       </ul>
