@@ -1,12 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, HashRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import AppWrapper from "components/AppWrapper";
 
 class Routes extends React.Component {
 
   render() {
-    const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? '/care-international' : '';
+    const isGHPages = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true;
+    // const prefix = isGHPages ? '/care-international' : '';
+    const prefix = '';
+    const Router = isGHPages ? HashRouter : BrowserRouter;
 
     return (<Router>
       <Switch>

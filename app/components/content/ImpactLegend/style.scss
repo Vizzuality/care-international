@@ -11,11 +11,15 @@
       margin-bottom: 10px;
     }
     > li {
+      margin-bottom: 10px;
       > ul {
         display: flex;
         align-items: flex-end;
         justify-content: flex-start;
+
         li {
+          display: flex;
+          align-items: center;
           margin-left: 5px;
         }
 
@@ -23,6 +27,50 @@
           fill: #F9781C;
         }
       }
+    }
+  }
+
+  .vertical-legend {
+    display: block;
+
+    > li {
+      margin: 5px 0;
+    }
+
+    span {
+      display: block;
+      position: relative;
+      top: 2px;
+      margin-left: 5px;
+    }
+  }
+
+  .legend-cluster {
+    > li {
+      margin-right: 10px;
+    }
+  }
+
+  .marker-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-right: 9px;
+
+    border-radius: 100%;
+
+    font: 12px/1.5 "Helvetica Neue",Arial,Helvetica,sans-serif;
+
+    &.-less {
+      background-color: #6ecc39;
+      box-shadow: 0 0 0 4px rgba(110, 204, 57, 0.6);
+    }
+
+    &.-more {
+      background-color: #f0c20c;
+      box-shadow: 0 0 0 4px rgba(241, 211, 87, 0.6);
     }
   }
 

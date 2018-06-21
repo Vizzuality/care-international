@@ -5,7 +5,7 @@ import ReactDOMServer from "react-dom/server";
 import ImpactLegend from "components/content/ImpactLegend";
 import StorySummary from "components/elements/StorySummary";
 import CircleSVG from "components/svg/Circle";
-import RhombusSVG from "components/svg/Rhombus";
+// import RhombusSVG from "components/svg/Rhombus";
 import { PruneCluster, PruneClusterForLeaflet } from 'exports-loader?PruneCluster,PruneClusterForLeaflet!prunecluster/dist/PruneCluster.js';
 
 const getSVGIcon = (SVGComponent, props) => {

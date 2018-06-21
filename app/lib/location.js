@@ -1,4 +1,5 @@
 import queryString from "query-string";
+// const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? 'care-international' : null;
 
 const getLocation = (options) => {
 
@@ -7,6 +8,10 @@ const getLocation = (options) => {
   });
 
   let parts = [];
+
+  // if (prefix) {
+  //   parts.push(encodeURIComponent(prefix));
+  // }
 
   if (options.year) {
     parts.push(encodeURIComponent(options.year));
