@@ -122,6 +122,8 @@ class ImpactMapArea extends React.Component {
     // Qualitative Markers
     const pruneCluster = new PruneClusterForLeaflet();
 
+    pruneCluster.Cluster.Size = 50;
+
     storiesByCountry
       .filter((story) => (program === "overall" || story.outcomes.includes(program)) && (!currentStory || currentStory === story.story_number))
       .forEach((story) => {
