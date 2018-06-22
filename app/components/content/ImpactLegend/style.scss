@@ -1,6 +1,33 @@
-#legend-impact {
+#legend {
+  position: relative;
+}
 
+#legend-impact {
   font-size: 14px;
+  min-width: 346px;
+
+  .legend-collapse {
+    // border: 1px solid #F9781C;
+    border: 1px solid #E3E3E3;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #FFFFFF;
+    // box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.15);
+    outline: 0;
+    position: relative;
+    z-index: 0;
+
+    &:hover {
+      color: white;
+      background-color: #F9781C;
+    }
+  }
+
+  > .legend-collapse {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+  }
 
   > ul {
     > li:nth-child(odd) {

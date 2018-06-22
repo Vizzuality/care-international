@@ -6,20 +6,23 @@ import buckets from "resources/buckets.json";
 import "./style.scss";
 import "../style.scss";
 
-const colors = {
-  overall: "#F9781C",
-  hum: "#DB1469",
-  wee: "#129EAD",
-  srmh: "#FF595A",
-  lffv: "#FFB403",
-  fnscc: "#99B74D",
-  default: "#B3B1AF",
-};
-
 class ImpactLegend extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapse: false
+    };
+    this.toggleLegend = this.toggleLegend.bind(this);
+  }
+
+  toggleLegend() {
+    this.setState({ collapse: !this.state.collapse });
+  }
+
   render() {
     return (<div id="legend-impact">
-      <ul>
+      <button className="legend-collapse" onClick={this.toggleLegend}>{this.state.collapse ? 'Show legend' : 'Hide legend'}</button>
+      {!this.state.collapse && <ul>
         <li>Number of impacts</li>
         <li>
           <ul className="legend-cluster">
@@ -70,7 +73,7 @@ class ImpactLegend extends React.Component {
             About Data
           </button>
         </li>
-      </ul>
+      </ul>}
     </div>);
   }
 }
