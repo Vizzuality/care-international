@@ -13,9 +13,9 @@ class Routes extends React.Component {
 
     return (<Router>
       <Switch>
-        <Redirect exact from={`${prefix}/`} to={`${prefix}/2016/reach/countries`} />
-        <Redirect exact from={`${prefix}/reach`} to={`${prefix}/2016/reach/countries`} />
-        <Redirect exact from={`${prefix}/countries`} to={`${prefix}/2016/reach/countries`} />
+        <Redirect exact from={`${prefix}/`} to={`${prefix}/2017/reach/countries`} />
+        <Redirect exact from={`${prefix}/reach`} to={`${prefix}/2017/reach/countries`} />
+        <Redirect exact from={`${prefix}/countries`} to={`${prefix}/2017/reach/countries`} />
 
         <Route exact path={`${prefix}/:year/reach/countries`} component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
         <Route exact path={`${prefix}/:year/reach/countries/:country?`} component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />

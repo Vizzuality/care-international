@@ -40,10 +40,11 @@ class App extends React.PureComponent {
     this.context.router.history.push(location);
   }
 
-  handleProgramChange(program) {
+  handleProgramChange(program, year) {
     this.navigate({
       mainView: this.props.navigation.mainView,
       subView: this.props.navigation.subView,
+      year: year || this.props.navigation.year,
       region: this.props.navigation.region,
       country: this.props.navigation.mainView === "impact" ?
         this.props.navigation.region && this.props.navigation.country :
