@@ -23,7 +23,7 @@ class ImpactLegend extends React.Component {
     return (<div id="legend-impact">
       <button className="legend-collapse" onClick={this.toggleLegend}>{this.state.collapse ? 'Show legend' : 'Hide legend'}</button>
       {!this.state.collapse && <ul>
-        <li>Number of impacts</li>
+        <li>Number of stories of impact</li>
         <li>
           <ul className="legend-cluster">
             <li>
