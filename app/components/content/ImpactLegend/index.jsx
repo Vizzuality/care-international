@@ -23,18 +23,7 @@ class ImpactLegend extends React.Component {
     return (<div id="legend-impact">
       <button className="legend-collapse" onClick={this.toggleLegend}>{this.state.collapse ? 'Show legend' : 'Hide legend'}</button>
       {!this.state.collapse && <ul>
-        <li>Number of stories of impact</li>
-        <li>
-          <ul className="legend-cluster">
-            <li>
-              <div className="marker-icon -less">0</div> Less than 10
-            </li>
-            <li>
-              <div className="marker-icon -more">10</div> 10 or more
-            </li>
-          </ul>
-        </li>
-        <li>Type of impacts</li>
+        <li>Areas of impacts</li>
         {/*<li>
           <ul>
             <li>
@@ -65,6 +54,17 @@ class ImpactLegend extends React.Component {
             </li>))}
             <li>
               1M population impacted
+            </li>
+          </ul>
+        </li>
+        <li>Number of impact stories</li>
+        <li>
+          <ul className="legend-cluster">
+            <li>
+              <div className="marker-icon -less"></div> Less than 10
+            </li>
+            <li>
+              <div className="marker-icon -more">10</div> 10 or more
             </li>
           </ul>
         </li>
