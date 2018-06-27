@@ -21,6 +21,19 @@ const getSVGIcon = (SVGComponent, props) => {
   });
 };
 
+const getSVGStoryIcon = (SVGComponent, props) => {
+  let { value, program, size, hideLabel } = props;
+  let label = value && value.toLocaleString();
+  let component = (<SVGComponent shadow program={program} label={label} hideLabel={hideLabel} size={size} bordered />);
+  let html = ReactDOMServer.renderToString(component);
+
+  return window.L.divIcon({
+    html: html,
+    iconSize: size,
+    iconAnchor: [size / 2, size / 2],
+  });
+};
+
 class ImpactMapArea extends React.Component {
 
   static propTypes = {
@@ -100,7 +113,7 @@ class ImpactMapArea extends React.Component {
               tooltip: {
                 left: left + width / 2,
                 top: top,
-                label: region.region || region.country,
+                label: `${region.region || region.country}: ${region[`${program}_impact`].toLocaleString()}`,
               },
             });
           }
@@ -129,7 +142,7 @@ class ImpactMapArea extends React.Component {
       .forEach((story) => {
         const { coordinates } = JSON.parse(story.country_centroid);
         const marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
-        marker.data.icon = getSVGIcon(CircleSVG, {
+        marker.data.icon = getSVGStoryIcon(CircleSVG, {
           // program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
           program,
           size: 18,
@@ -194,7 +207,7 @@ class ImpactMapArea extends React.Component {
   render() {
     return (<div className="map-area-content">
       <div id="legend" className="impact">
-        <ImpactLegend />
+        <ImpactLegend program={this.props.program} />
       </div>
       {this.state.tooltip && (<div className="custom-tooltip-wrapper" style={{
         left: this.state.tooltip.left,

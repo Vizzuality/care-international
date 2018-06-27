@@ -20,6 +20,8 @@ class ImpactLegend extends React.Component {
   }
 
   render() {
+    const { program } = this.props;
+
     return (<div id="legend-impact">
       <button className="legend-collapse" onClick={this.toggleLegend}>{this.state.collapse ? 'Show legend' : 'Hide legend'}</button>
       {!this.state.collapse && <ul>
@@ -60,6 +62,9 @@ class ImpactLegend extends React.Component {
         <li>Number of impact stories</li>
         <li>
           <ul className="legend-cluster">
+            <li>
+              <div className={`marker-icon -one ${program}`}></div> Story
+            </li>
             <li>
               <div className="marker-icon -less"></div> Less than 10
             </li>

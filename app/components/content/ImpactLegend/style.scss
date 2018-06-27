@@ -1,3 +1,6 @@
+@import "styles/colors.scss";
+@import "styles/values.scss";
+
 #legend {
   position: relative;
 }
@@ -82,13 +85,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     margin-right: 9px;
 
     border-radius: 100%;
 
     font: 12px/1.5 "Helvetica Neue",Arial,Helvetica,sans-serif;
+
+    &.-one {
+      border: 2px solid white;
+      width: 18px;
+      height: 18px;
+      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    @each $program, $color in $programColors {
+      &.-one.#{$program} {
+        background-color: $color;
+      }
+    }
 
     &.-less {
       background-color: #6ecc39;
