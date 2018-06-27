@@ -64,7 +64,7 @@ class ImpactLegend extends React.Component {
               <div className="marker-icon -less"></div> Less than 10
             </li>
             <li>
-              <div className="marker-icon -more">10</div> 10 or more
+              <div className="marker-icon -more"></div> 10 or more
             </li>
           </ul>
         </li>
