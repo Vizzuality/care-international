@@ -36,6 +36,13 @@ class ReachSidebarArea extends React.Component {
       year,
     } = this.props;
 
+    const maxValue = Math.max.apply(null, programs.map((p) => {
+      let directValue = statistics[`${p.id}_direct_participants`];
+      let indirectValue = statistics[`${p.id}_indirect_participants`];
+      let maxValue = directValue + indirectValue;
+      return maxValue;
+    }));
+
     return (<div className="sidebar-content-reach">
 
       <AreaSummary
@@ -136,7 +143,7 @@ class ReachSidebarArea extends React.Component {
               {programs.map((p, n) => {
                 let directValue = statistics[`${p.id}_direct_participants`];
                 let indirectValue = statistics[`${p.id}_indirect_participants`];
-                let maxValue = directValue + indirectValue;
+                // let maxValue = directValue + indirectValue;
 
                 return (<li key={n} className={p.id}>
                   <RadioButton
