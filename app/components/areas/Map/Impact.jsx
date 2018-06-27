@@ -127,9 +127,11 @@ class ImpactMapArea extends React.Component {
     storiesByCountry
       .filter((story) => (program === "overall" || story.outcomes.includes(program)) && (!currentStory || currentStory === story.story_number))
       .forEach((story) => {
-        const marker = new PruneCluster.Marker(story.lat, story.lon);
+        const { coordinates } = JSON.parse(story.country_centroid);
+        const marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
         marker.data.icon = getSVGIcon(CircleSVG, {
-          program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
+          // program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
+          program,
           size: 18,
         });
         marker.data.popup = this.getPopup(story);

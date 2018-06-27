@@ -244,6 +244,7 @@ const getImpactStoriesSQL = withEscapedArgs(() => {
 
   const fields = [
     "s.story_number AS story_number",
+    "ST_AsGeoJSON(s.the_geom) as country_centroid",
     "MIN(g.XMIN) AS xmin, MIN(g.XMAX) AS xmax, MIN(g.YMIN) as ymin, MIN(g.YMAX) ymax",
     "MIN(image) AS image",
     "MIN(content) AS content",
@@ -254,18 +255,19 @@ const getImpactStoriesSQL = withEscapedArgs(() => {
 
   return [
     `SELECT ${fields.join(", ")}`,
-    "FROM story s INNER JOIN (",
+    "FROM story_new s INNER JOIN (",
     `  SELECT story_number, ${bounds}`,
-    "  FROM story s INNER JOIN impact_data2017 i ON s.iso = i.iso",
+    "  FROM story_new s INNER JOIN impact_data2017 i ON s.iso = i.iso",
     "  GROUP BY story_number",
     ") g ON s.story_number = g.story_number",
-    "GROUP BY s.story_number",
+    "GROUP BY s.story_number, s.the_geom",
   ].join(" ");
 });
 
 const getImpactStoriesByCountrySQL = withEscapedArgs(() => {
   const fields = [
     "s.story_number AS story_number",
+    "ST_AsGeoJSON(s.the_geom) as country_centroid",
     "s.country AS country",
     "AVG(ST_X(the_geom)) AS lon",
     "AVG(ST_Y(the_geom)) AS lat",
@@ -275,8 +277,8 @@ const getImpactStoriesByCountrySQL = withEscapedArgs(() => {
 
   return [
     `SELECT ${fields.join(", ")}`,
-    "FROM story s",
-    "GROUP BY s.story_number, s.country",
+    "FROM story_new s",
+    "GROUP BY s.story_number, s.country, s.the_geom",
   ].join(" ");
 });
 
