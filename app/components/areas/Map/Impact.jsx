@@ -144,7 +144,7 @@ class ImpactMapArea extends React.Component {
         const marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
         marker.data.icon = getSVGStoryIcon(CircleSVG, {
           // program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
-          program,
+          program: program === 'overall' ? story.outcomes[0] : program,
           size: 18,
         });
         marker.data.popup = this.getPopup(story);
