@@ -34,6 +34,7 @@
 
   > ul {
     > li:nth-child(odd) {
+      font-weight: bold;
       font-size: 14px;
       margin-bottom: 5px;
     }
