@@ -75,9 +75,11 @@ class ImpactMapArea extends React.Component {
 
 
   initMarkers() {
-    let {
+    const {
       program,
       story: currentStory,
+      region,
+      country,
       regions,
       storiesByCountry,
       handleMapChange,
@@ -137,13 +139,46 @@ class ImpactMapArea extends React.Component {
 
     pruneCluster.Cluster.Size = 50;
 
+    // Open cluster on click and avoid to bounds on zoom
+    pruneCluster.BuildLeafletCluster = function(cluster, position) {
+      var m = new L.Marker(position, {
+        icon: pruneCluster.BuildLeafletClusterIcon(cluster)
+      });
+
+      m.on('click', function(e) {
+        // Compute the  cluster bounds (it's slow : O(n))
+        var markersArea = pruneCluster.Cluster.FindMarkersInArea(cluster.bounds);
+
+        if (!region && !country) return handleMapChange(markersArea[0].data.region);
+
+        // Open spider
+        pruneCluster._map.fire('overlappingmarkers', {
+          cluster: pruneCluster,
+          markers: markersArea,
+          center: m.getLatLng(),
+          marker: m
+        });
+      });
+
+      return m;
+    };
+
     storiesByCountry
       .filter((story) => (program === "overall" || story.outcomes.includes(program)) && (!currentStory || currentStory === story.story_number))
+      .filter((story) => {
+        if (region && !country) return story.region === region;
+        if (country) return story.country === country;
+        return true;
+      })
       .forEach((story) => {
-        const { coordinates } = JSON.parse(story.country_centroid);
+        const regionsCoordinates = regions.find(r => r.region === story.region);
+        const { coordinates } = (!region && !country) ?
+          { coordinates: [regionsCoordinates.region_center_x, regionsCoordinates.region_center_y] } :
+          JSON.parse(story.country_centroid);
         const marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
+        marker.data.region = story.region;
+        marker.data.country = story.country;
         marker.data.icon = getSVGStoryIcon(CircleSVG, {
-          // program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
           program: program === 'overall' ? story.outcomes[0] : program,
           size: 18,
         });
@@ -156,30 +191,14 @@ class ImpactMapArea extends React.Component {
     // Adding to map
     this.context.map.addLayer(this.quantitativeMarkers);
     this.context.map.addLayer(this.qualitativeMarkers);
-
-    // this.qualitativeMarkers = storiesByCountry
-    //   .filter((story) => (program === "overall" || story.outcomes.includes(program)) && (!currentStory || currentStory === story.story_number))
-    //   .map((story) => {
-    //     return window.L.marker([story.lat, story.lon], {
-    //       icon: getSVGIcon(RhombusSVG, {
-    //         program: story.outcomes.length > 1 ? "overall" : story.outcomes[0],
-    //         size: 18,
-    //       }),
-    //       zIndexOffset: 200,
-    //     }).bindPopup(this.getPopup(story)).addTo(this.context.map);
-    //   });
   }
 
   destroyMarkers() {
     this.context.map.removeLayer(this.quantitativeMarkers);
     this.quantitativeMarkers = null;
-    // this.quantitativeMarkers.forEach((marker) => this.context.map.removeLayer(marker));
-    // this.quantitativeMarkers = [];
 
     this.context.map.removeLayer(this.qualitativeMarkers);
     this.qualitativeMarkers = null;
-    // this.qualitativeMarkers.forEach((marker) => this.context.map.removeLayer(marker));
-    // this.quantitativeMarkers = [];
   }
 
   componentDidMount() {

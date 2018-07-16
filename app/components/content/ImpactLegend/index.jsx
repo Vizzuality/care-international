@@ -29,15 +29,15 @@ class ImpactLegend extends React.Component {
         <li>
           <ul className="legend-cluster -vertical">
             {(program === 'overall' || program === 'hum') &&
-              <li><div className={`marker-icon -one hum`}></div><span>Humanitarian response stories</span></li>}
+              <li><div className={`marker-icon -one hum`}></div><span>Humanitarian response story</span></li>}
             {(program === 'overall' || program === 'wee') &&
-              <li><div className={`marker-icon -one wee`}></div><span>Women's economic empowerment stories</span></li>}
+              <li><div className={`marker-icon -one wee`}></div><span>Women's economic empowerment story</span></li>}
             {(program === 'overall' || program === 'srmh') &&
-              <li><div className={`marker-icon -one srmh`}></div><span>The right to sexual, reproductive and maternal health stories</span></li>}
+              <li><div className={`marker-icon -one srmh`}></div><span>The right to sexual, reproductive and maternal health story</span></li>}
             {(program === 'overall' || program === 'lffv') &&
-              <li><div className={`marker-icon -one lffv`}></div><span>The right to a life free from violence stories</span></li>}
+              <li><div className={`marker-icon -one lffv`}></div><span>The right to a life free from violence story</span></li>}
             {(program === 'overall' || program === 'fnscc') &&
-              <li><div className={`marker-icon -one fnscc`}></div><span>Food and nutrition security and climate change resilience stories</span></li>}
+              <li><div className={`marker-icon -one fnscc`}></div><span>Food and nutrition security and climate change resilience story</span></li>}
             <li>
               <div className="marker-icon -less"></div> More than 1 story
             </li>

@@ -41,6 +41,8 @@ class MapArea extends React.Component {
       {navigation.mainView === "impact" && (<ImpactMap
         program={navigation.program}
         story={navigation.story}
+        region={navigation.region}
+        country={navigation.country}
         regions={data.regions}
         storiesByCountry={data.storiesByCountry}
         handleMapChange={handlers.handleMapChange}

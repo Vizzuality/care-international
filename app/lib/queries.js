@@ -222,7 +222,6 @@ const getImpactRegionDataSQL = withEscapedArgs((region) => {
 
   let subquery = `SELECT ${subfields.join(", ")} FROM impact_data2017`;
 
-
   if (!region) {
     subquery += " GROUP BY region";
   } else {
@@ -264,11 +263,12 @@ const getImpactStoriesSQL = withEscapedArgs(() => {
   ].join(" ");
 });
 
-const getImpactStoriesByCountrySQL = withEscapedArgs(() => {
+const getImpactStoriesByCountrySQL = withEscapedArgs((country) => {
   const fields = [
     "s.story_number AS story_number",
     "ST_AsGeoJSON(s.the_geom) as country_centroid",
     "s.country AS country",
+    "s.region AS region",
     "AVG(ST_X(the_geom)) AS lon",
     "AVG(ST_Y(the_geom)) AS lat",
     "MIN(story) AS story",
@@ -278,7 +278,8 @@ const getImpactStoriesByCountrySQL = withEscapedArgs(() => {
   return [
     `SELECT ${fields.join(", ")}`,
     "FROM story_new s",
-    "GROUP BY s.story_number, s.country, s.the_geom",
+    `${country ? ` WHERE s.country ='${country}'` : ''}`,
+    "GROUP BY s.story_number, s.country, s.region, s.the_geom",
   ].join(" ");
 });
 
