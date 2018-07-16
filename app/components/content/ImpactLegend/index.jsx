@@ -25,26 +25,34 @@ class ImpactLegend extends React.Component {
     return (<div id="legend-impact">
       <button className="legend-collapse" onClick={this.toggleLegend}>{this.state.collapse ? 'Show legend' : 'Hide legend'}</button>
       {!this.state.collapse && <ul>
-        <li>Areas of impacts</li>
-        {/*<li>
-          <ul>
-            <li>
-              <CircleSVG size={15} /> Qualitative
-            </li>
-            <li>
-              <CircleSVG size={15} /> Quantitative
-            </li>
-          </ul>
-        </li>*/}
+        <li>Areas of impacts stories</li>
         <li>
-          <ul className="vertical-legend">
-            <li><CircleSVG program="hum" size={15} /><span>Humanitarian response</span></li>
-            <li><CircleSVG program="wee" size={15} /><span>Women's economic empowerment</span></li>
-            <li><CircleSVG program="srmh" size={15} /><span>The right to sexual, reproductive and maternal health</span></li>
-            <li><CircleSVG program="lffv" size={15} /><span>The right to a life free from violence</span></li>
-            <li><CircleSVG program="fnscc" size={15} /><span>Food and nutrition security and climate change resilience</span></li>
+          <ul className="legend-cluster -vertical">
+            {(program === 'overall' || program === 'hum') &&
+              <li><div className={`marker-icon -one hum`}></div><span>Humanitarian response stories</span></li>}
+            {(program === 'overall' || program === 'wee') &&
+              <li><div className={`marker-icon -one wee`}></div><span>Women's economic empowerment stories</span></li>}
+            {(program === 'overall' || program === 'srmh') &&
+              <li><div className={`marker-icon -one srmh`}></div><span>The right to sexual, reproductive and maternal health stories</span></li>}
+            {(program === 'overall' || program === 'lffv') &&
+              <li><div className={`marker-icon -one lffv`}></div><span>The right to a life free from violence stories</span></li>}
+            {(program === 'overall' || program === 'fnscc') &&
+              <li><div className={`marker-icon -one fnscc`}></div><span>Food and nutrition security and climate change resilience stories</span></li>}
+            <li>
+              <div className="marker-icon -less"></div> More than 1 story
+            </li>
           </ul>
         </li>
+        {/*<li>Areas of impacts stories</li>
+        <li>
+          <ul className="vertical-legend">
+            {(program === 'overall' || program === 'hum') && <li><CircleSVG program="hum" size={15} /><span>Humanitarian response stories</span></li>}
+            {(program === 'overall' || program === 'wee') && <li><CircleSVG program="wee" size={15} /><span>Women's economic empowerment stories</span></li>}
+            {(program === 'overall' || program === 'srmh') && <li><CircleSVG program="srmh" size={15} /><span>The right to sexual, reproductive and maternal health stories</span></li>}
+            {(program === 'overall' || program === 'lffv') && <li><CircleSVG program="lffv" size={15} /><span>The right to a life free from violence stories</span></li>}
+            {(program === 'overall' || program === 'fnscc') && <li><CircleSVG program="fnscc" size={15} /><span>Food and nutrition security and climate change resilience stories</span></li>}
+          </ul>
+        </li>*/}
         <li>Population impacted (quantitative)</li>
         <li>
           <ul className="legend">
@@ -52,27 +60,24 @@ class ImpactLegend extends React.Component {
               1
             </li>
             {buckets.impact.map((bucket, n) => (<li key={n}>
-              <CircleSVG size={bucket[2]/2} />
+              <CircleSVG program={program} size={bucket[2]/2} />
             </li>))}
             <li>
               1M population impacted
             </li>
           </ul>
         </li>
-        <li>Number of impact stories</li>
+        {/*<li>Number of impact stories</li>
         <li>
           <ul className="legend-cluster">
             <li>
               <div className={`marker-icon -one ${program}`}></div> Story
             </li>
             <li>
-              <div className="marker-icon -less"></div> Less than 10
-            </li>
-            <li>
-              <div className="marker-icon -more"></div> 10 or more
+              <div className="marker-icon -less"></div> More than 1
             </li>
           </ul>
-        </li>
+        </li>*/}
         <li className="about-button">
           <button className="secondary" onClick={this.props.handleAboutClick}>
             About Data
