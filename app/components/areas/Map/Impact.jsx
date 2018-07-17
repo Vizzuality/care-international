@@ -62,9 +62,9 @@ class ImpactMapArea extends React.Component {
   }
 
   getPopup(story) {
-    let component = (<StorySummary story={story} router={this.context.router} />);
-
-    let html = ReactDOMServer.renderToString(component);
+    const component = (<StorySummary story={story} router={this.context.router} />);
+    const html = ReactDOMServer.renderToString(component);
+    // return html;
 
     return window.L.popup({
       minWidth: 290,
@@ -137,6 +137,8 @@ class ImpactMapArea extends React.Component {
     // Qualitative Markers
     const pruneCluster = new PruneClusterForLeaflet();
 
+    this.pruneCluster = pruneCluster;
+
     pruneCluster.Cluster.Size = 50;
 
     // Open cluster on click and avoid to bounds on zoom
@@ -176,13 +178,14 @@ class ImpactMapArea extends React.Component {
           { coordinates: [regionsCoordinates.region_center_x, regionsCoordinates.region_center_y] } :
           JSON.parse(story.country_centroid);
         const marker = new PruneCluster.Marker(coordinates[1], coordinates[0]);
+        const popUpHtml = this.getPopup(story) || '';
         marker.data.region = story.region;
         marker.data.country = story.country;
         marker.data.icon = getSVGStoryIcon(CircleSVG, {
           program: program === 'overall' ? story.outcomes[0] : program,
           size: 18,
         });
-        marker.data.popup = this.getPopup(story);
+        marker.data.popup = popUpHtml;
         pruneCluster.RegisterMarker(marker);
       });
 
@@ -194,6 +197,8 @@ class ImpactMapArea extends React.Component {
   }
 
   destroyMarkers() {
+    if (this.pruneCluster) this.pruneCluster.RemoveMarkers();
+
     this.context.map.removeLayer(this.quantitativeMarkers);
     this.quantitativeMarkers = null;
 
@@ -203,13 +208,19 @@ class ImpactMapArea extends React.Component {
 
   componentDidMount() {
     this.initMarkers();
+
+    // Fix for pop-up in zoom level change
+    this.context.map.on('zoomend', () => {
+      this.destroyMarkers();
+      this.initMarkers();
+    });
   }
 
   componentWillUnmount() {
     this.destroyMarkers();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.regions !== this.props.regions) {
       this.destroyMarkers();
       this.initMarkers();
@@ -221,7 +232,6 @@ class ImpactMapArea extends React.Component {
       tooltip: null,
     });
   }
-
 
   render() {
     return (<div className="map-area-content">
