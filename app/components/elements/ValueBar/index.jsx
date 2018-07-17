@@ -4,8 +4,8 @@ import classNames from "classnames";
 
 import "./style.scss";
 
-const maxWidth = 97;
-const minWidth = 3;
+const maxWidth = 180;
+const minWidth = 10;
 
 class ValueBar extends React.Component {
 

@@ -136,7 +136,7 @@ class SidebarArea extends React.Component {
           <ul>
             <li className="see-overall">
               <AppLink
-                className="secondary"
+                className="primary"
                 mainView={mainView}
                 subView={subView}
                 region={region}

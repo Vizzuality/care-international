@@ -229,8 +229,12 @@
     bottom: 0;
 
     li.see-overall {
-      width: 100%;
+      display: flex;
+      justify-content: center;
+      width: 100%;+
+
       a {
+        text-align: center;
         width: 100%;
       }
     }

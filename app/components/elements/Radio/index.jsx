@@ -10,6 +10,7 @@ class RadioButton extends React.Component {
     name: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
     colorClass: PropTypes.string,
   };
 
@@ -19,7 +20,8 @@ class RadioButton extends React.Component {
         name={this.props.name}
         type="radio"
         checked={this.props.checked}
-        onChange={this.props.onChange} />
+        onChange={this.props.onChange}
+        onClick={this.props.onClick} />
       <label htmlFor={this.props.id}>
         <svg width="14" height="14" className={this.props.colorClass}>
           <circle className="outer" cx="7" cy="7" r="6" stroke="black" strokeWidth="1" fill="none" />

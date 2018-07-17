@@ -79,7 +79,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
   },
-  devtool: "source-map",
+  devtool: "cheap-eval-source-map",
   module: {
     rules: [
       { test: /\.cartoscss$/, use: ["raw-loader", "cartocss-loader", {
