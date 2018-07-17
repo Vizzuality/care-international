@@ -77,11 +77,17 @@
 
       li + li {
         margin-left: 0.5em;
+        font-size: 14px;
       }
 
       li + li::before {
         margin-right: 0.5em;
-        content: "-";
+        content: ">";
+        color: $font-color-3;
+      }
+
+      li:last-child:before {
+        color: $font-color-1;
       }
     }
   }
