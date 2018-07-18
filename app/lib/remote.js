@@ -90,7 +90,7 @@ const fetchImpactData = (region, country) => {
   return window.Promise.all([
     getStatistics,
     getRegionData,
-    (region || country) && getBounds("impact_data", region, country),
+    (region || country) && getBounds("impact_data2017", region, country),
   ]);
 };
 
