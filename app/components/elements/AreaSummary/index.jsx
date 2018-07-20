@@ -15,7 +15,7 @@ class AreaSummary extends React.Component {
     return (<div className="content">
       <dl className="summary">
         <dt>
-          {title}
+          <span dangerouslySetInnerHTML={{ __html: title }} />
           {program !== "overall" && (<span className="subtitle">
             {programs.find((p) => p.id === program).label}
           </span>)}

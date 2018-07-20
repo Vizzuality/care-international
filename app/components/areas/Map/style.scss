@@ -5,7 +5,6 @@
 #map-area {
 
   #legend {
-
     @media #{$mq-mobile} {
       display: none;
     }
@@ -14,12 +13,11 @@
     bottom: 40px;
     right: 20px;
 
-    border: 1px solid $accent-color-5;
-    box-shadow: 0 0 7px 0 rgba(209,203,203,0.44);
-    background-color: white;
-    padding: 12px 20px 12px 12px;
-    font-size: 14px;
-
+    // border: 1px solid $accent-color-5;
+    // box-shadow: 0 0 7px 0 rgba(209,203,203,0.44);
+    // background-color: white;
+    // padding: 12px 20px 12px 12px;
+    // font-size: 14px;
   }
 
   #about-data {

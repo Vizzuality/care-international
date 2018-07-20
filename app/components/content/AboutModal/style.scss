@@ -7,9 +7,18 @@
     align-items: flex-start;
 
     .right {
-      padding: 80px 75px;
+      padding: 40px 40px;
+
+      .wrapper {
+        margin-bottom: 1em;
+
+        a {
+          text-decoration: underline;
+        }
+      }
+
       img {
-        margin-bottom: 3em;
+        margin-bottom: 2em;
       }
 
       p:not(:last-child) {

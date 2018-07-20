@@ -26,7 +26,6 @@
   }
 }
 
-
 @each $program, $color in $programColors {
   .#{$program}.valuebar {
     .valuebar__current {

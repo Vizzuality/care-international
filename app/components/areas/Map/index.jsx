@@ -34,12 +34,15 @@ class MapArea extends React.Component {
       {navigation.mainView === "reach" && (<ReachMap
         subView={navigation.subView}
         program={navigation.program}
+        year={navigation.year}
         handleMapChange={handlers.handleMapChange}
       />)}
 
       {navigation.mainView === "impact" && (<ImpactMap
         program={navigation.program}
         story={navigation.story}
+        region={navigation.region}
+        country={navigation.country}
         regions={data.regions}
         storiesByCountry={data.storiesByCountry}
         handleMapChange={handlers.handleMapChange}

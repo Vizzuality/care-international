@@ -35,6 +35,7 @@
     flex-grow: 2;
     overflow-x: hidden;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .menu {
@@ -77,11 +78,17 @@
 
       li + li {
         margin-left: 0.5em;
+        font-size: 14px;
       }
 
       li + li::before {
         margin-right: 0.5em;
-        content: "-";
+        content: ">";
+        color: $font-color-3;
+      }
+
+      li:last-child:before {
+        color: $font-color-1;
       }
     }
   }
@@ -223,8 +230,12 @@
     bottom: 0;
 
     li.see-overall {
-      width: 100%;
+      display: flex;
+      justify-content: center;
+      width: 100%;+
+
       a {
+        text-align: center;
         width: 100%;
       }
     }

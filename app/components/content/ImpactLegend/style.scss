@@ -1,9 +1,49 @@
-#legend-impact {
+@import "styles/colors.scss";
+@import "styles/values.scss";
 
+#legend {
+  position: relative;
+}
+
+.legend-collapse {
+  position: absolute;
+  right: 0;
+  top: -24px;
+
+  // border: 1px solid #F9781C;
+  border: 1px solid #E3E3E3;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #FFFFFF;
+  // box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.15);
+  outline: 0;
+  z-index: 0;
+  white-space: nowrap;
+
+  &:hover {
+    color: white;
+    background-color: #F9781C;
+  }
+}
+
+.legend-impact-wrapper {
+  min-width: 346px;
+
+  border: 1px solid $accent-color-5;
+  box-shadow: 0 0 7px 0 rgba(209,203,203,0.44);
+  background-color: white;
+  padding: 12px 20px 12px 12px;
   font-size: 14px;
+
+  > .legend-collapse {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+  }
 
   > ul {
     > li:nth-child(odd) {
+      font-weight: bold;
       font-size: 14px;
       margin-bottom: 5px;
     }
@@ -11,14 +51,94 @@
       margin-bottom: 10px;
     }
     > li {
+      margin-bottom: 10px;
       > ul {
         display: flex;
         align-items: flex-end;
         justify-content: flex-start;
+
         li {
+          display: flex;
+          align-items: center;
           margin-left: 5px;
         }
+
+        &.legend-cluster {
+          display: block;
+          margin-top: 0;
+          margin-bottom: 0;
+
+          > li {
+            margin-left: 0;
+            margin-bottom: 10px;
+          }
+
+          > li:last-child {
+            // border-top: 1px dashed rgba(0, 0, 0, .1);
+            padding-top: 9px;
+            margin-top: 3px;
+            margin-left: 3px;
+          }
+        }
+
+        // &.legend circle {
+        //   fill: #F9781C;
+        // }
       }
+    }
+  }
+
+  .vertical-legend {
+    display: block;
+
+    > li {
+      margin: 5px 0;
+    }
+
+    span {
+      display: block;
+      position: relative;
+      top: 2px;
+      margin-left: 5px;
+    }
+  }
+
+  .marker-icon {
+    $cluster-bg: white;
+    $cluster-color: #0015F2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-right: 9px;
+
+    border-radius: 100%;
+
+    font: 12px/1.5 "Helvetica Neue",Arial,Helvetica,sans-serif;
+
+    &.-one {
+      border: 2px solid white;
+      width: 16px;
+      height: 16px;
+      box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    @each $program, $color in $programColors {
+      &.-one.#{$program} {
+        background-color: $color;
+      }
+    }
+
+    &.-less {
+      background-color: $cluster-bg;
+      box-shadow: 0 0 0 4px rgba($cluster-color, 0.75);
+    }
+
+    &.-more {
+      background-color: $cluster-bg;
+      box-shadow: 0 0 0 4px rgba($cluster-color, 0.75);
     }
   }
 

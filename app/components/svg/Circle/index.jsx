@@ -11,18 +11,24 @@ class CircleSVG extends React.Component {
     program: PropTypes.string,
     size: PropTypes.number.isRequired,
     shadow: PropTypes.bool,
+    fill: PropTypes.string,
+    bordered: PropTypes.bool
   };
 
   static defaultProps = {
     label: null,
     program: "default",
+    fill: '#F9781C'
   }
 
   render() {
-    return (<svg className={classnames(["circle", this.props.program, { shadow: this.props.shadow }])} height={this.props.size} width={this.props.size}>
-      <circle cx={this.props.size / 2} cy={this.props.size / 2} r={this.props.size / 2} strokeWidth="1">
-        {this.props.label && (<title>{this.props.label}</title>)}
-      </circle>
+    const { size, fill, label, program, shadow, bordered } = this.props;
+
+    return (<svg className={classnames(["circle", program, { shadow: shadow, bordered }])} height={size} width={size}>
+      {/*<circle fill={fill} cx={size / 2} cy={size / 2} r={size / 2} strokeWidth="1">
+        {label && (<title dangerouslySetInnerHTML={{ __html: label }} />)}
+      </circle>*/}
+      <circle fill={fill} cx={size / 2} cy={size / 2} r={size / 2} strokeWidth="1" />
     </svg>);
   }
 

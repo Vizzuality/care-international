@@ -33,12 +33,20 @@ class ReachSidebarArea extends React.Component {
       country,
       statistics,
       handleProgramChange,
+      year,
     } = this.props;
+
+    const maxValue = Math.max.apply(null, programs.map((p) => {
+      let directValue = statistics[`${p.id}_direct_participants`];
+      let indirectValue = statistics[`${p.id}_indirect_participants`];
+      let maxValue = directValue + indirectValue;
+      return maxValue;
+    }));
 
     return (<div className="sidebar-content-reach">
 
       <AreaSummary
-        title="Projects and Initiatives in 2016"
+        title={`Projects and Initiatives in ${year}`}
         value={statistics[`${program}_projects_and_initiatives`]}
         program={program}
       />
@@ -46,7 +54,7 @@ class ReachSidebarArea extends React.Component {
       {!(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>
           <dt>
-            Participants reached in 2016
+            Participants reached in {year}
           </dt>
           <dd>
             <ul>
@@ -76,7 +84,7 @@ class ReachSidebarArea extends React.Component {
       {(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>
           <dt>
-            Participants reached in 2016
+            Participants reached in {year}
           </dt>
           <dd>
             <ul>
@@ -97,7 +105,7 @@ class ReachSidebarArea extends React.Component {
                   formatter={(v) => v.toLocaleString()} />
                 <BarWrapper bar={ValueBar}
                   colorClass="overall"
-                  value={statistics["overall_direct_participants"] - statistics[`${program}_direct_participants`]}
+                  value={statistics["overall_direct_participants"]}
                   maxValue={statistics["overall_direct_participants"]}
                   formatter={(v) => v.toLocaleString()} />
               </li>
@@ -112,7 +120,7 @@ class ReachSidebarArea extends React.Component {
                   formatter={(v) => v.toLocaleString()} />
                 <BarWrapper bar={ValueBar}
                   colorClass="overall"
-                  value={statistics["overall_indirect_participants"] - statistics[`${program}_indirect_participants`]}
+                  value={statistics["overall_indirect_participants"]}
                   maxValue={statistics["overall_indirect_participants"]}
                   formatter={(v) => v.toLocaleString()} />
               </li>
@@ -135,7 +143,7 @@ class ReachSidebarArea extends React.Component {
               {programs.map((p, n) => {
                 let directValue = statistics[`${p.id}_direct_participants`];
                 let indirectValue = statistics[`${p.id}_indirect_participants`];
-                let maxValue = directValue + indirectValue;
+                // let maxValue = directValue + indirectValue;
 
                 return (<li key={n} className={p.id}>
                   <RadioButton

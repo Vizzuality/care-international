@@ -20,7 +20,7 @@ class BarWrapper extends React.Component {
   render() {
     const { bar: Bar, value, maxValue, colorClass, formatter } = this.props;
 
-    if (value) {
+    if (value || value === 0) {
       return (<Bar value={value}
         maxValue={maxValue}
         colorClass={colorClass}>

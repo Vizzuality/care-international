@@ -7,7 +7,7 @@ import "./style.scss";
 
 const maxBounds = [[-90, -180], [90, 180]];
 
-class LeafletProvider extends React.Component {
+class LeafletProvider extends React.PureComponent {
 
   static childContextTypes = {
     map: PropTypes.object,

@@ -20,6 +20,7 @@ class AppWrapper extends React.Component {
     let navigation = {
       mainView: mainView,
       subView: subView,
+      year: match.params.year && decodeURIComponent(match.params.year),
       country: match.params.country && decodeURIComponent(match.params.country),
       region: match.params.region && decodeURIComponent(match.params.region),
       story: match.params.story && decodeURIComponent(match.params.story),

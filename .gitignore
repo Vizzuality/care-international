@@ -14,3 +14,9 @@
 
 # Dist folder
 /dist
+
+# env
+.env
+
+# Don't add package lock file
+package-lock.json

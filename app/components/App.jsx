@@ -40,10 +40,11 @@ class App extends React.PureComponent {
     this.context.router.history.push(location);
   }
 
-  handleProgramChange(program) {
+  handleProgramChange(program, year) {
     this.navigate({
       mainView: this.props.navigation.mainView,
       subView: this.props.navigation.subView,
+      year: year || this.props.navigation.year,
       region: this.props.navigation.region,
       country: this.props.navigation.mainView === "impact" ?
         this.props.navigation.region && this.props.navigation.country :
@@ -52,10 +53,11 @@ class App extends React.PureComponent {
     });
   }
 
-  handleMapChange(region, country) {
+  handleMapChange(region, country, year) {
     this.navigate({
       mainView: this.props.navigation.mainView,
       subView: this.props.navigation.subView,
+      year: year || this.props.navigation.year,
       region: region || this.props.navigation.region,
       country: country || this.props.navigation.country,
       program: this.props.navigation.program,
@@ -86,7 +88,7 @@ class App extends React.PureComponent {
     switch (navigation.mainView) {
 
       case "reach":
-        fetchReachData(navigation.region, navigation.country)
+        fetchReachData(navigation.region, navigation.country, navigation.year)
           .then(([statistics, bounds]) => {
             this.setState({
               loading: false,
@@ -128,7 +130,7 @@ class App extends React.PureComponent {
   render() {
     let handlers = {
       handleProgramChange: (program) => this.handleProgramChange(program),
-      handleMapChange: (region, country) => this.handleMapChange(region, country),
+      handleMapChange: (region, country, year) => this.handleMapChange(region, country, year),
       handleCloseStory: () => this.handleCloseStory(),
       handleToggleModal: (modal) => this.handleToggleModal(modal),
     };

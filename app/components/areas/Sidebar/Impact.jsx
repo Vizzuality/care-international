@@ -6,7 +6,7 @@ import AreaSummary from "components/elements/AreaSummary";
 import RadioButton from "components/elements/Radio";
 import BarWrapper from "components/wrappers/Bar";
 import ValueBar from "components/elements/ValueBar";
-import RhombusSVG from "components/svg/Rhombus";
+import CircleSVG from "components/svg/Circle";
 
 import getLocation from "lib/location";
 import programs from "resources/programs.json";
@@ -40,7 +40,7 @@ class ImpactSidebarArea extends React.Component {
     return (<div className="sidebar-content-impact">
 
       <AreaSummary
-        title="Total Population impacted in 2016"
+        title="Total Population impacted<br /> by end of 2017"
         value={statistics[`${program}_impact`]}
         program={program}
       />
@@ -57,12 +57,13 @@ class ImpactSidebarArea extends React.Component {
                 let value = statistics[`${p.id}_impact`];
                 let maxValue = statistics["overall_impact"];
 
-                return (<li key={n} className={p.id}>
+                return (<li key={`sidebar-impact-item-${p.id}`} className={p.id}>
                   <RadioButton
                     id={`radio-${n}`}
                     name="program-filter"
                     checked={program === p.id}
-                    onChange={() => handleProgramChange(p.id)}>
+                    onChange={() => handleProgramChange(p.id)}
+                    onClick={(e) => program === p.id && handleProgramChange('overall')}>
                     {p.label}
                   </RadioButton>
                   <ul>
@@ -90,8 +91,8 @@ class ImpactSidebarArea extends React.Component {
           </dt>
           <dd>
             <ul>
-              {stories.map((story) => {
-                return (<li key={story.story_number}>
+              {stories.map((story, n) => {
+                return (<li key={story.story_number + n}>
                   <ul className="story">
                     <li className="title">
                       <AppLink mainView="impact" story={story.story_number}>
@@ -101,7 +102,7 @@ class ImpactSidebarArea extends React.Component {
                     <li>
                       <ul className="outcomes">
                         {story.outcomes.map((outcome) => (<li key={outcome}>
-                          <RhombusSVG size={15} program={outcome} />
+                          <CircleSVG size={15} program={outcome} />
                           {outcome}
                         </li>))}
                       </ul>

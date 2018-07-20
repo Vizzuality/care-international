@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import withContext from "components/enhancers/withContext";
 import getLocation from "lib/location";
 
-class StorySummary extends React.Component {
+class StorySummary extends React.PureComponent {
 
   static propTypes = {
     story: PropTypes.object.isRequired,
@@ -23,7 +23,7 @@ class StorySummary extends React.Component {
     return (<div>
       {this.props.story.story}
       <hr />
-      <LinkWithContext to={location}>See all story</LinkWithContext>
+      <LinkWithContext to={location} replace={true}>See more</LinkWithContext>
     </div>);
   }
 
