@@ -174,7 +174,6 @@ class Layout extends React.Component {
 
   render() {
     let { modal, navigation, handlers } = this.props;
-
     let { mainView } = navigation;
 
     /* prevent the possibility that a story is rendered with a wrong country in the background */
