@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, HashRouter, Switch, Route, Redirect } from "react-router-dom";
+import { setKey } from "lib/storage";
 
 import AppWrapper from "components/AppWrapper";
 
@@ -10,6 +11,15 @@ class Routes extends React.Component {
     // const prefix = isGHPages ? '/care-international' : '';
     const prefix = '';
     const Router = isGHPages ? HashRouter : BrowserRouter;
+
+    // Enabling modal when user go using origin URL
+    const originUrls = [
+      'http://localhost:8080',
+      'https://vizzuality.github.io/care-international',
+      'https://impact.care-international.org'
+    ];
+    const matchOriginUrl = originUrls.find(o => (o === location.href || `${o}/` === location.href));
+    if (matchOriginUrl) setKey("about-dismissed", false);
 
     return (<Router>
       <Switch>
