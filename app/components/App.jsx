@@ -85,8 +85,8 @@ class App extends React.PureComponent {
 
   fetchRemoteData() {
     let { navigation } = this.props;
-    switch (navigation.mainView) {
 
+    switch (navigation.mainView) {
       case "reach":
         fetchReachData(navigation.region, navigation.country, navigation.year)
           .then(([statistics, bounds]) => {
@@ -113,7 +113,6 @@ class App extends React.PureComponent {
             });
           });
         break;
-
     }
   }
 

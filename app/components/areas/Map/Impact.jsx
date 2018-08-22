@@ -173,7 +173,7 @@ class ImpactMapArea extends React.Component {
         return true;
       })
       .forEach((story) => {
-        const regionsCoordinates = regions.find(r => r.region === story.region);
+        const regionsCoordinates = regions.find(r => r.region === story.region) || {};
         const { coordinates } = (!region && !country) ?
           { coordinates: [regionsCoordinates.region_center_x, regionsCoordinates.region_center_y] } :
           JSON.parse(story.country_centroid);
