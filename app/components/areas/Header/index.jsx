@@ -7,6 +7,8 @@ import Select from "react-select";
 import imgCare from "images/care.png";
 import "./style.scss";
 
+import { years } from "./constants"
+
 class HeaderArea extends React.Component {
 
   static propTypes = {
@@ -17,22 +19,24 @@ class HeaderArea extends React.Component {
     super(props);
 
     this.state = {
-      year: '2018'
+      selectedYear: '',
     }
   }
 
-  handleChange() {
-    this.SetState({ year });
-    console.log('year')
+  handleChange = (e) => {
+    const  selectedYear  = this.state;
+    this.setState({ selectedYear: e.value });
+
+    location.replace(`/${e.value}/reach/countries` );
   }
 
+
+
   render() {
+
     // const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? '/care-international' : '';
     const prefix = '';
-    const { year } = this.state;
-    const yearsOptions = [{ label: "2016", value: "2016" },
-    { label: "2017", value: "2017" },
-    { label: "2018", value: "2018" }]
+    const { selectedYear } = this.state;
 
     return (<div id="header">
 
@@ -43,11 +47,19 @@ class HeaderArea extends React.Component {
             <span className="reacts">Reach</span>
               <Select
                 classNamePrefix="react-select"
-                options={yearsOptions}
+                options={years}
+                value={selectedYear}
                 onChange={this.handleChange}
+                theme={(theme) => ({
+                  ...theme,
+                  colors: {
+                  ...theme.colors,
+                    primary25: 'rgba(240, 120, 28, 0.1)',
+                    primary: 'rgba(240, 120, 28, 0.1)',
+                  },
+                })}
               />
           </div>
-
           </li>
           <li>
             <NavLink to={`${prefix}/impact`} activeClassName="active">Impact</NavLink>
