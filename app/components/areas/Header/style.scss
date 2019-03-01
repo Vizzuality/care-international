@@ -20,6 +20,10 @@
 
       li {
         margin-left: 40px;
+        &.menu-select {
+          display: flex;
+
+        }
       }
 
       @media #{$mq-mobile} {
@@ -31,6 +35,25 @@
       }
     }
 
+    .select-menu {
+      display: flex;
+      height: 100%;
+      align-items: flex-end;
+      .react-select__control {
+        color: $font-color-4;
+        background-color: $bg-color-2;
+      }
+      span.react {
+        margin-bottom: 0;
+      }
+      span {
+        color: $font-color-4;
+        display: block;
+        border-bottom: 6px solid transparent;
+        text-transform: uppercase;
+      }
+    }
+
     a {
       color: $font-color-4;
       display: block;
@@ -39,7 +62,8 @@
       text-transform: uppercase;
     }
 
-    a.active {
+    a.active,
+    span.active {
       color: $font-color-2;
       border-bottom-color: $accent-color-1;
     }
