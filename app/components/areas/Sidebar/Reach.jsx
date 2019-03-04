@@ -8,6 +8,8 @@ import PercentageBar from "components/elements/PercentageBar";
 import ValueBar from "components/elements/ValueBar";
 import Select from 'react-select';
 
+import { logEvent } from "utils/analytics";
+
 import programs from "resources/programs.json";
 import imgHelp from "images/help.svg";
 import { years } from "../../elements/AreaSummary/constants";
@@ -28,6 +30,13 @@ class ReachSidebarArea extends React.Component {
   static defaultProps = {
     program: "overall",
   };
+
+  componentWillUpdate(){
+    const { country, program } = this.props;
+    if (country && program ) {
+      logEvent('detailed data', country, program)
+    }
+  }
 
   render() {
     let {

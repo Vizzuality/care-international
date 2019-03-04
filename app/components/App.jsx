@@ -96,8 +96,10 @@ class App extends React.PureComponent {
                 statistics: statistics,
                 bounds: bounds,
               },
-            });
+            }
+);
           });
+
         break;
 
       case "impact":

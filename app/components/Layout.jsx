@@ -9,6 +9,9 @@ import Sidebar from "components/areas/Sidebar";
 import Story from "components/areas/Story";
 import Modal from "components/areas/Modal";
 
+// Utils
+import { initGA, logPageView } from "utils/analytics";
+
 import navigationProps from "props/navigation";
 
 class Layout extends React.Component {
@@ -40,6 +43,15 @@ class Layout extends React.Component {
       stories: PropTypes.array.isRequired,
     }).isRequired,
   };
+
+  componentDidMount() {
+    // Google Analytics
+    if (!window.GA_INITIALIZED) {
+      initGA();
+      window.GA_INITIALIZED = true;
+    }
+    logPageView();
+  }
 
   renderReach() {
     let {
