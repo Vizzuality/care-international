@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import Select from 'react-select';
 import classname from 'classnames';
+import { Route, Router } from 'react-router-dom';
+import Layout from "components/Layout";
 
 import programs from "resources/programs.json";
 import { years } from './constants';
@@ -27,7 +29,6 @@ class AreaSummary extends React.Component {
     }
   }
 
-
   handleChange = (e) => {
     this.setState({
       selectedYear:
@@ -36,7 +37,12 @@ class AreaSummary extends React.Component {
         value: e.value
       }
     });
-    location.replace(`/${e.value}/reach/countries`);
+    //location.replace(`/${e.value}/reach/countries`);
+    Router.pushRoute(`/${e.value}/reach/countries`);
+
+
+   // <Route exact path={`/${e.value}/reach/countries`} component={Layout}/>
+
   }
 
   render() {
