@@ -1,6 +1,8 @@
 import React from "react";
 import copy from "copy-to-clipboard";
 
+import { logEvent } from "utils/analytics";
+
 import "./style.scss";
 import "../style.scss";
 
@@ -10,7 +12,9 @@ class ShareContent extends React.Component {
     super(...args);
     this.url = window.location;
   }
-
+  componentDidMount() {
+    logEvent('Share', 'Share url', this.url);
+  }
   copyTextArea() {
     copy(this.url);
   }

@@ -7,6 +7,8 @@ import BarWrapper from "components/wrappers/Bar";
 import PercentageBar from "components/elements/PercentageBar";
 import ValueBar from "components/elements/ValueBar";
 
+import { logEvent } from "utils/analytics";
+
 import programs from "resources/programs.json";
 import imgHelp from "images/help.svg";
 
@@ -26,6 +28,13 @@ class ReachSidebarArea extends React.Component {
   static defaultProps = {
     program: "overall",
   };
+
+  componentWillUpdate(){
+    const { country, program } = this.props;
+    if (country && program ) {
+      logEvent('detailed data', country, program)
+    }
+  }
 
   render() {
     let {
