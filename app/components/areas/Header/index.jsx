@@ -7,8 +7,6 @@ import { NavLink } from "react-router-dom";
 import imgCare from "images/care.png";
 import "./style.scss";
 
-import { runInContext } from "vm";
-
 class HeaderArea extends React.Component {
 
   static propTypes = {
@@ -46,4 +44,4 @@ class HeaderArea extends React.Component {
 }
 
 export default HeaderArea;
-runInContext
+
