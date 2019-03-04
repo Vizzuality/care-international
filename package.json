@@ -12,7 +12,7 @@
   "dependencies": {
     "babel-plugin-wildcard": "^2.1.2",
     "babel-polyfill": "^6.23.0",
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "colors": "^1.1.2",
     "copy-to-clipboard": "^3.0.6",
     "exports-loader": "^0.7.0",

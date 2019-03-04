@@ -1,0 +1,53 @@
+@import "styles/colors.scss";
+@import "styles/fonts.scss";
+
+.c-area-summary {
+  &.reach {
+    display: flex;
+      > span {
+        margin: auto 0;
+      }
+  }
+
+  .select-menu {
+    display: flex;
+
+    .react-select__control {
+      color: $font-color-4;
+      margin-bottom: 5px;
+      min-width: 80px;
+      font-size: 16px;
+      border: 1 solid $font-color-4;
+    }
+
+    .react-select__control--is-focused {
+      background-color:rgba(240, 120, 28, 0.1);;
+    }
+
+    .react-select__single-value {
+      color: $font-color-1;
+    }
+    .react-select__indicator-separator {
+      display: none;
+    }
+
+    .react-select__indicator {
+      color: $font-color-1;
+    }
+
+    span.react {
+      margin-bottom: 0;
+    }
+    span {
+      color: $font-color-4;
+      border-bottom: 6px solid transparent;
+      text-transform: uppercase;
+      padding-bottom: 7px;
+    }
+    > * {
+      padding: 0 5px;
+    }
+  }
+
+
+}

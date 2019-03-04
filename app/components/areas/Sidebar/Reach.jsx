@@ -6,9 +6,11 @@ import RadioButton from "components/elements/Radio";
 import BarWrapper from "components/wrappers/Bar";
 import PercentageBar from "components/elements/PercentageBar";
 import ValueBar from "components/elements/ValueBar";
+import Select from 'react-select';
 
 import programs from "resources/programs.json";
 import imgHelp from "images/help.svg";
+import { years } from "../../elements/AreaSummary/constants";
 
 import "./style.scss";
 
@@ -33,7 +35,7 @@ class ReachSidebarArea extends React.Component {
       country,
       statistics,
       handleProgramChange,
-      year,
+      year
     } = this.props;
 
     const maxValue = Math.max.apply(null, programs.map((p) => {
@@ -46,11 +48,10 @@ class ReachSidebarArea extends React.Component {
     return (<div className="sidebar-content-reach">
 
       <AreaSummary
-        title={`Projects and Initiatives in ${year}`}
+        title="Projects and Initiatives in"
         value={statistics[`${program}_projects_and_initiatives`]}
         program={program}
       />
-
       {!(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>
           <dt>

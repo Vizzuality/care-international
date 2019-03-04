@@ -38,55 +38,6 @@
       }
     }
 
-    .select-menu {
-      display: flex;
-      height: 100%;
-      align-items: flex-end;
-      justify-content: flex-start;
-      z-index: 20;
-
-      .react-select__control {
-        color: $font-color-4;
-        background-color: $bg-color-2;
-        margin-bottom: 5px;
-        min-width: 80px;
-        background-color:rgba(240, 120, 28, 0.1);
-        font-size: 16px;
-        border: none;
-      }
-
-
-      .react-select__control--is-focused {
-        z-index: 20;
-        background-color:rgba(240, 120, 28, 0.1);;
-
-      }
-
-      .react-select__control--menu-is-open {
-        z-index: 20;
-      }
-      .react-select__indicator-separator {
-        display: none;
-      }
-
-      .react-select__indicator {
-        color: $accent-color-1;
-      }
-
-      span.react {
-        margin-bottom: 0;
-      }
-      span {
-        color: $font-color-4;
-        border-bottom: 6px solid transparent;
-        text-transform: uppercase;
-        padding-bottom: 7px;
-      }
-    > * {
-      padding-right: 5px;
-    }
-    }
-
     a {
       color: $font-color-4;
       display: block;

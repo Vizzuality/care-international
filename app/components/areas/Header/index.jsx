@@ -7,7 +7,7 @@ import Select from "react-select";
 import imgCare from "images/care.png";
 import "./style.scss";
 
-import { years } from "./constants"
+import { runInContext } from "vm";
 
 class HeaderArea extends React.Component {
 
@@ -19,14 +19,22 @@ class HeaderArea extends React.Component {
     super(props);
 
     this.state = {
-      selectedYear: '',
+      selectedYear:
+        {
+          label: '2018',
+          value: '2018'
+        }
     }
   }
 
   handleChange = (e) => {
-    const  selectedYear  = this.state;
-    this.setState({ selectedYear: e.value });
-
+    this.setState({
+      selectedYear:
+      {
+        label: e.label,
+        value: e.value
+      }
+    });
     location.replace(`/${e.value}/reach/countries` );
   }
 
@@ -36,30 +44,13 @@ class HeaderArea extends React.Component {
 
     // const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? '/care-international' : '';
     const prefix = '';
-    const { selectedYear } = this.state;
 
     return (<div id="header">
 
       <div className="menu">
         <ul className="menu">
           <li>
-          <div className="select-menu">
-            <span className="reacts">Reach</span>
-              <Select
-                classNamePrefix="react-select"
-                options={years}
-                value={selectedYear}
-                onChange={this.handleChange}
-                theme={(theme) => ({
-                  ...theme,
-                  colors: {
-                  ...theme.colors,
-                    primary25: 'rgba(240, 120, 28, 0.1)',
-                    primary: 'rgba(240, 120, 28, 0.1)',
-                  },
-                })}
-              />
-          </div>
+            <NavLink to={`${prefix}/reach`} activeClassName="active">Reach</NavLink>
           </li>
           <li>
             <NavLink to={`${prefix}/impact`} activeClassName="active">Impact</NavLink>
@@ -77,3 +68,4 @@ class HeaderArea extends React.Component {
 }
 
 export default HeaderArea;
+runInContext
