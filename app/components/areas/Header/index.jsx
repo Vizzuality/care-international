@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classnames from 'classnames';
 
 import { NavLink } from "react-router-dom";
-import Select from "react-select";
 
 import imgCare from "images/care.png";
 import "./style.scss";
@@ -15,42 +15,20 @@ class HeaderArea extends React.Component {
     handleAboutClick: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedYear:
-        {
-          label: '2018',
-          value: '2018'
-        }
-    }
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      selectedYear:
-      {
-        label: e.label,
-        value: e.value
-      }
-    });
-    location.replace(`/${e.value}/reach/countries` );
-  }
-
-
-
   render() {
 
     // const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? '/care-international' : '';
     const prefix = '';
+    const pathname= location.pathname;
 
     return (<div id="header">
 
       <div className="menu">
         <ul className="menu">
           <li>
-            <NavLink to={`${prefix}/reach`} activeClassName="active">Reach</NavLink>
+            <NavLink to={`${prefix}/reach`} className={ classnames({
+              'active': location.href.includes("reach")})}>Reach</NavLink>
+
           </li>
           <li>
             <NavLink to={`${prefix}/impact`} activeClassName="active">Impact</NavLink>

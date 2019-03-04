@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Select from 'react-select';
 import classname from 'classnames';
-import { Route, Router } from 'react-router-dom';
-import Layout from "components/Layout";
+
 
 import programs from "resources/programs.json";
 import { years } from './constants';
@@ -19,7 +18,6 @@ class AreaSummary extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       selectedYear:
       {
@@ -30,19 +28,11 @@ class AreaSummary extends React.Component {
   }
 
   handleChange = (e) => {
-    this.setState({
-      selectedYear:
-      {
-        label: e.label,
-        value: e.value
-      }
-    });
-    //location.replace(`/${e.value}/reach/countries`);
-    Router.pushRoute(`/${e.value}/reach/countries`);
+    const { router } = this.props;
+    const { label, value } = e;
+    this.setState({ selectedYear: { label, value } });
 
-
-   // <Route exact path={`/${e.value}/reach/countries`} component={Layout}/>
-
+    router.history.replace(`/${value}/reach/countries`);
   }
 
   render() {
@@ -76,7 +66,7 @@ class AreaSummary extends React.Component {
                 })}
               />
             </div>}
-          <span>{(value || "no data").toLocaleString()}</span>
+          <span className="area-summary-data">{(value || "no data").toLocaleString()}</span>
       </div>
     </div>);
   }
