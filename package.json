@@ -12,7 +12,7 @@
   "dependencies": {
     "babel-plugin-wildcard": "^2.1.2",
     "babel-polyfill": "^6.23.0",
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "colors": "^1.1.2",
     "copy-to-clipboard": "^3.0.6",
     "exports-loader": "^0.7.0",
@@ -28,6 +28,7 @@
     "react-dom": "^15.5.4",
     "react-ga": "^2.5.7",
     "react-router-dom": "^4.1.1",
+    "react-select": "^2.4.1",
     "resetcss": "^1.0.3"
   },
   "devDependencies": {

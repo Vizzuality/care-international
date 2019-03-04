@@ -48,6 +48,7 @@ class SidebarArea extends React.Component {
 
     let {
       loading,
+      router
     } = this.props;
 
     let {
@@ -123,6 +124,7 @@ class SidebarArea extends React.Component {
           handleProgramChange={handleProgramChange}
           handleAboutDirectReachClick={handleAboutDirectReachClick}
           handleAboutIndirectReachClick={handleAboutIndirectReachClick}
+          router={router}
         />)}
 
         {mainView === "impact" && (<ImpactSidebar

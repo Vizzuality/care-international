@@ -57,6 +57,7 @@ class Layout extends React.Component {
     let {
       loading,
       navigation,
+      router
     } = this.props;
 
     let {
@@ -88,6 +89,7 @@ class Layout extends React.Component {
           handleAboutDirectReachClick: () => handleToggleModal("aboutDirectReach"),
           handleAboutIndirectReachClick: () => handleToggleModal("aboutIndirectReach"),
         }}
+        router={router}
       />
       <LeafletWrapper
         bounds={bounds}

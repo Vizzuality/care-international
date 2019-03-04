@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classnames from 'classnames';
 
 import { NavLink } from "react-router-dom";
 
@@ -13,18 +14,19 @@ class HeaderArea extends React.Component {
   };
 
   render() {
+
     // const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? '/care-international' : '';
     const prefix = '';
+    const pathname= location.pathname;
 
     return (<div id="header">
 
       <div className="menu">
         <ul className="menu">
           <li>
-            <NavLink to={`${prefix}/2017/reach/countries`} activeClassName="active">Reach 2017</NavLink>
-          </li>
-          <li>
-            <NavLink to={`${prefix}/2016/reach/countries`} activeClassName="active">Reach 2016</NavLink>
+            <NavLink to={`${prefix}/reach`} className={ classnames({
+              'active': location.href.includes("reach")})}>Reach</NavLink>
+
           </li>
           <li>
             <NavLink to={`${prefix}/impact`} activeClassName="active">Impact</NavLink>
@@ -42,3 +44,4 @@ class HeaderArea extends React.Component {
 }
 
 export default HeaderArea;
+

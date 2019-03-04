@@ -43,6 +43,7 @@ class ReachSidebarArea extends React.Component {
       statistics,
       handleProgramChange,
       year,
+      router
     } = this.props;
 
     const maxValue = Math.max.apply(null, programs.map((p) => {
@@ -55,11 +56,11 @@ class ReachSidebarArea extends React.Component {
     return (<div className="sidebar-content-reach">
 
       <AreaSummary
-        title={`Projects and Initiatives in ${year}`}
+        title="Projects and Initiatives in"
         value={statistics[`${program}_projects_and_initiatives`]}
         program={program}
+        router={router}
       />
-
       {!(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>
           <dt>
