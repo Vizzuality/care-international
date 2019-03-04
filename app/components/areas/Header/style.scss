@@ -46,8 +46,7 @@
       text-transform: uppercase;
     }
 
-    a.active,
-    span.active {
+    .active {
       color: $font-color-2;
       border-bottom-color: $accent-color-1;
     }

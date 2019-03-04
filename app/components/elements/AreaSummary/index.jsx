@@ -16,16 +16,10 @@ class AreaSummary extends React.Component {
     program: PropTypes.string.isRequired,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedYear:
-      {
-        label: '2018',
-        value: '2018'
-      }
-    }
+  state = {
+    selectedYear: {label: '2018', value: '2018'}
   }
+
 
   handleChange = (e) => {
     const { router } = this.props;
