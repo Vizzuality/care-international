@@ -17,7 +17,7 @@ class AreaSummary extends React.Component {
   }
 
   state = {
-    year: '2018',
+    year: '2018'
   }
 
 
