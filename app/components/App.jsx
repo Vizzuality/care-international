@@ -65,6 +65,12 @@ class App extends React.PureComponent {
       country: country || this.props.navigation.country,
       program: this.props.navigation.program,
     });
+    if (year) {
+      logEvent('Program', this.props.navigation.year, program)
+    }
+    if (country) {
+      logEvent('Impact area: ' + this.props.navigation.country, 'program: ' + this.props.navigation.program);
+    }
   }
 
   handleCloseStory() {
