@@ -8,6 +8,8 @@ import getLocation from "lib/location";
 import { setKey, getKey } from "lib/storage";
 import { fetchReachData, fetchImpactData } from "lib/remote";
 
+import { logEvent } from "utils/analytics";
+
 class App extends React.PureComponent {
 
   static contextTypes = {
@@ -51,6 +53,7 @@ class App extends React.PureComponent {
         this.props.navigation.country,
       program: program,
     });
+    logEvent('Program', this.props.navigation.year, program);
   }
 
   handleMapChange(region, country, year) {
