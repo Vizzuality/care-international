@@ -53,7 +53,13 @@ class App extends React.PureComponent {
         this.props.navigation.country,
       program: program,
     });
-    logEvent('Program', this.props.navigation.year, program);
+
+    if (this.props.navigation.mainView === "reach") {
+      logEvent('Program', this.props.navigation.year, this.props.navigation.program)
+    }
+    if (this.props.navigation.mainView === "impact" && this.props.navigation.country) {
+      logEvent('Impact area: ' + this.props.navigation.country, 'program: ' + this.props.navigation.program);
+    }
   }
 
   handleMapChange(region, country, year) {
@@ -65,12 +71,6 @@ class App extends React.PureComponent {
       country: country || this.props.navigation.country,
       program: this.props.navigation.program,
     });
-    if (year) {
-      logEvent('Program', this.props.navigation.year, program)
-    }
-    if (country) {
-      logEvent('Impact area: ' + this.props.navigation.country, 'program: ' + this.props.navigation.program);
-    }
   }
 
   handleCloseStory() {
