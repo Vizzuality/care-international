@@ -35,7 +35,7 @@ yarn start
 
 Build
 ```bash
-BASE_LAYER_ID=aa0b663e-b8af-4433-9ab0-4dbeb7c1b981 LABEL_LAYER_ID=3cb14d6b-49ab-423b-8290-7a19d374381e CARTODB_ACCOUNT=careinternational yarn build
+BASE_LAYER_ID=aa0b663e-b8af-4433-9ab0-4dbeb7c1b981 LABEL_LAYER_ID=3cb14d6b-49ab-423b-8290-7a19d374381e CARTODB_ACCOUNT=careinternational NODE_ENV=production yarn build
 ```
 ## Deploy to staging
 There is a Github pages project set up. 
