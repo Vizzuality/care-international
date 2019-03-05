@@ -66,6 +66,6 @@
     "build": "NODE_ENV=production rm -rf dist/* && webpack",
     "start": "webpack-dev-server",
     "lint": "eslint . --ext jsx,js",
-    "deploy-staging": "NODE_ENV=production GITHUB_PAGES_FOLDER=true rm -rf dist/* && webpack --output-public-path='/care-international/' && gh-pages -d dist",
+    "deploy-staging": "NODE_ENV=production GITHUB_PAGES_FOLDER=true rm -rf dist/* && webpack --output-public-path='/care-international/' && gh-pages -d dist"
   }
 }
