@@ -55,7 +55,7 @@ class AreaSummary extends React.Component {
                   colors: {
                     ...theme.colors,
                     primary25: 'rgba(240, 120, 28, 0.1)',
-                    primary: 'rgba(240, 120, 28, 0.1)',
+                    primary: 'rgba(240, 120, 28, 0.9)',
                   },
                 })}
               />
