@@ -8,8 +8,6 @@ import getLocation from "lib/location";
 import { setKey, getKey } from "lib/storage";
 import { fetchReachData, fetchImpactData } from "lib/remote";
 
-import { logEvent } from "utils/analytics";
-
 class App extends React.PureComponent {
 
   static contextTypes = {
@@ -53,7 +51,6 @@ class App extends React.PureComponent {
         this.props.navigation.country,
       program: program,
     });
-
     if (this.props.navigation.mainView === "reach") {
       logEvent('Program', this.props.navigation.year, this.props.navigation.program)
     }

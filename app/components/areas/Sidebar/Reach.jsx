@@ -60,6 +60,7 @@ class ReachSidebarArea extends React.Component {
         value={statistics[`${program}_projects_and_initiatives`]}
         program={program}
         router={router}
+        country={country}
       />
       {!(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>

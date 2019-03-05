@@ -19,6 +19,7 @@
 
   .select-menu {
     display: flex;
+    margin-left: 5px;
 
     .react-select__control {
       color: $font-color-4;
@@ -34,7 +35,15 @@
       background-color:rgba(240, 120, 28, 0.1);;
     }
 
-    .react-select__single-value {
+    .react-select__menu {
+      color: $font-color-1;
+      > * {
+        color: $font-color-1;
+      }
+    }
+
+    .react-select__single-value,
+    .react-select__single-value--is-focused {
       color: $font-color-1;
       bottom: 0;
     }
