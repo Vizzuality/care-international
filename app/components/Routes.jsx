@@ -24,14 +24,13 @@ class Routes extends React.Component {
         {isGHPages && (<Redirect exact from="/care-international" to="/2018/reach/countries" />)}
         <Redirect exact from="/" to="/2018/reach/countries" />
         <Redirect exact from="/reach" to="/2018/reach/countries" />
-        <Redirect exact from="/countries" to="/2018/reach/countries" />
 
         <Route exact path="/:year/reach/countries" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
         <Route exact path="/:year/reach/countries/:country?" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
         <Route exact path="/:year/reach/regions" component={(props) => <AppWrapper mainView="reach" subView="regions" {...props} />} />
         <Route exact path="/:year/reach/regions/:region?" component={(props) => <AppWrapper mainView="reach" subView="regions" {...props} />} />
         <Route exact path="/impact/story/:story" component={(props) => <AppWrapper mainView="impact" {...props} />} />
-        <Route exact path="impact/:region?/:country" component={(props) => <AppWrapper mainView="impact" {...props} />} />
+        <Route exact path="/impact/:region?/:country?" component={(props) => <AppWrapper mainView="impact" {...props} />} />
 
         <Route exact path="*" component={(props) => <AppWrapper mainView="notfound" {...props} />} />
       </Switch>
