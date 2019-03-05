@@ -10,6 +10,9 @@
 
   font-size: 18px;
 
+  > div {
+    z-index: 15;
+  }
   div.menu {
     height: 100%;
 
@@ -20,6 +23,10 @@
 
       li {
         margin-left: 40px;
+        &.menu-select {
+          display: flex;
+
+        }
       }
 
       @media #{$mq-mobile} {
@@ -39,7 +46,7 @@
       text-transform: uppercase;
     }
 
-    a.active {
+    .active {
       color: $font-color-2;
       border-bottom-color: $accent-color-1;
     }

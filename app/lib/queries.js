@@ -75,6 +75,7 @@ const getReachMapRegionsSQL = withEscapedArgs((program, year = 2016) => {
 const getReachStatisticsCountriesSQL = withEscapedArgs((country, year = 2016) => {
 
   const suffix = year.toString() === '2016' ? '' : year.toString();
+  // const suffix = year.toString();
 
   let fields = [
     "fnscc_data::BOOL AS has_fnscc_data",

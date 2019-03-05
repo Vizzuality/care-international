@@ -40,7 +40,7 @@ class ImpactSidebarArea extends React.Component {
     return (<div className="sidebar-content-impact">
 
       <AreaSummary
-        title="Total Population impacted<br /> by end of 2017"
+        title="Total Population impacted<br /> by end of 2018"
         value={statistics[`${program}_impact`]}
         program={program}
       />

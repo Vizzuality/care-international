@@ -151,6 +151,7 @@ class App extends React.PureComponent {
       modal={this.state.modal}
       data={this.state.data}
       handlers={handlers}
+      router={this.context.router}
     />);
   }
 
