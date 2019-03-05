@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 
 import ReachLegend from "components/content/ReachLegend";
 
-import { logEvent } from "utils/analytics";
-
 import { getReachMapCountriesSQL, getReachMapRegionsSQL } from "lib/queries";
 import config from "config.json";
 
