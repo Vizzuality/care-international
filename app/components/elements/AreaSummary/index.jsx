@@ -22,17 +22,17 @@ class AreaSummary extends React.Component {
 
 
   handleChange = (e) => {
-    const { router } = this.props;
+    const { router, country } = this.props;
     const selectedYear = e.value;
-
     this.setState({ year: selectedYear })
-    router.history.replace(`/${selectedYear}/reach/countries`);
+    country ?
+      router.history.replace(`/${selectedYear}/reach/countries/${country}`)
+      : router.history.replace(`/${selectedYear}/reach/countries`)
   }
 
   render() {
     let { title, value, program } = this.props;
     const { year } = this.state;
-
     return (<div className="content">
       <div className={classname(
         location.href.includes("reach") ? 'reach' : 'impact',
@@ -55,7 +55,7 @@ class AreaSummary extends React.Component {
                   colors: {
                     ...theme.colors,
                     primary25: 'rgba(240, 120, 28, 0.1)',
-                    primary: 'rgba(240, 120, 28, 0.1)',
+                    primary: 'rgba(240, 120, 28, 0.9)',
                   },
                 })}
               />
