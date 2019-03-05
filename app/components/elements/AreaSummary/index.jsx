@@ -17,21 +17,21 @@ class AreaSummary extends React.Component {
   }
 
   state = {
-    selectedYear: { label: '2018', value: '2018' }
+    year: '2018'
   }
 
 
   handleChange = (e) => {
     const { router } = this.props;
-    const { label, value } = e;
-    this.setState({ selectedYear: { label, value } });
+    const selectedYear = e.value;
 
-    router.history.replace(`/${value}/reach/countries`);
+    this.setState({ year: selectedYear })
+    router.history.replace(`/${selectedYear}/reach/countries`);
   }
 
   render() {
     let { title, value, program } = this.props;
-    let { selectedYear } = this.state;
+    const { year } = this.state;
 
     return (<div className="content">
       <div className={classname(
@@ -47,7 +47,7 @@ class AreaSummary extends React.Component {
               <Select
                 classNamePrefix="react-select"
                 options={years}
-                value={selectedYear}
+                value={{label: year, value: year}}
                 isSearchable
                 onChange={this.handleChange}
                 theme={(theme) => ({

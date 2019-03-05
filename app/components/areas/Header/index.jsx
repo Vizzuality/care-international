@@ -17,7 +17,6 @@ class HeaderArea extends React.Component {
 
     // const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? '/care-international' : '';
     const prefix = '';
-    const pathname= location.pathname;
 
     return (<div id="header">
 
