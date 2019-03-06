@@ -102,7 +102,9 @@ const getReachStatisticsCountriesSQL = withEscapedArgs((country, year = 2016) =>
     "num_srmh_projects_and_initiatives AS srmh_projects_and_initiatives",
     "num_direct_participants AS overall_direct_participants",
     "num_indirect_participants AS overall_indirect_participants",
-    "num_projects_and_initiatives AS overall_projects_and_initiatives"
+    "num_projects_and_initiatives AS overall_projects_and_initiatives",
+    "COALESCE(percent_women_of_direct_participants, 0) * num_direct_participants AS overall_direct_participants_women",
+    "COALESCE(percent_women_of_indirect_participants, 0) * num_indirect_participants AS overall_indirect_participants_women"
   ];
 
   return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE country = '${country || "Total"}'`;
@@ -136,7 +138,9 @@ const getReachStatisticsRegionsSQL = withEscapedArgs((region, year = 2016) => {
     "SUM(num_srmh_projects_and_initiatives) AS srmh_projects_and_initiatives",
     "SUM(num_direct_participants) AS overall_direct_participants",
     "SUM(num_indirect_participants) AS overall_indirect_participants",
-    "SUM(num_projects_and_initiatives) AS overall_projects_and_initiatives"
+    "SUM(num_projects_and_initiatives) AS overall_projects_and_initiatives",
+    "SUM(COALESCE(percent_women_of_direct_participants, 0) * num_direct_participants) AS overall_direct_participants_women",
+    "SUM(COALESCE(percent_women_of_indirect_participants, 0) * num_indirect_participants) AS overall_indirect_participants_women"
   ];
 
   return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE region = '${region}'`;
