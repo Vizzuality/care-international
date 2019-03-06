@@ -54,10 +54,14 @@ class App extends React.PureComponent {
       program: program,
     });
     if (this.props.navigation.mainView === "reach") {
-      logEvent('Program', this.props.navigation.year, this.props.navigation.program)
+      (this.props.navigation.program) ?
+      logEvent('Reach', 'year: ' + this.props.navigation.year, 'program: ' + this.props.navigation.program) :
+      logEvent('Reach', 'year: ' + this.props.navigation.year, 'overall')
     }
-    if (this.props.navigation.mainView === "impact" && this.props.navigation.country) {
-      logEvent('Impact area: ' + this.props.navigation.country, 'program: ' + this.props.navigation.program);
+    if (this.props.navigation.mainView === "impact") {
+      (this.props.navigation.region) ?
+      logEvent('Impact area: ' + this.props.navigation.region, 'program: ' + this.props.navigation.program) :
+      logEvent('Impact trough years', 'Program: ', this.props.navigation.program )
     }
   }
 
