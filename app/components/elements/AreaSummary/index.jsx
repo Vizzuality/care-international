@@ -1,13 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Select from 'react-select';
-import classname from 'classnames';
-
 
 import programs from "resources/programs.json";
-import { years } from './constants';
-
-import "./style.scss";
 
 class AreaSummary extends React.Component {
   static propTypes = {
@@ -16,53 +10,20 @@ class AreaSummary extends React.Component {
     program: PropTypes.string.isRequired,
   }
 
-  state = {
-    year: '2018'
-  }
-
-
-  handleChange = (e) => {
-    const { router, country } = this.props;
-    const selectedYear = e.value;
-    this.setState({ year: selectedYear })
-    country ?
-      router.history.replace(`/${selectedYear}/reach/countries/${country}`)
-      : router.history.replace(`/${selectedYear}/reach/countries`)
-  }
-
   render() {
     let { title, value, program } = this.props;
-    const { year } = this.state;
     return (<div className="content">
-      <div className={classname(
-        location.href.includes("reach") ? 'reach' : 'impact',
-        'c-area-summary')}>
-        <div className="area-summary-wrapper">
+      <dl className="summary">
+        <dt>
           <span dangerouslySetInnerHTML={{ __html: title }} />
           {program !== "overall" && (<span className="subtitle">
             {programs.find((p) => p.id === program).label}
           </span>)}
-          {location.href.includes("reach") &&
-            <div className="select-menu">
-              <Select
-                classNamePrefix="react-select"
-                options={years}
-                value={{label: year, value: year}}
-                isSearchable
-                onChange={this.handleChange}
-                theme={(theme) => ({
-                  ...theme,
-                  colors: {
-                    ...theme.colors,
-                    primary25: 'rgba(240, 120, 28, 0.1)',
-                    primary: 'rgba(240, 120, 28, 0.9)',
-                  },
-                })}
-              />
-            </div>}
-        </div>
-        <span className="area-summary-data">{(value || "no data").toLocaleString()}</span>
-      </div>
+        </dt>
+        <dd>
+          <span>{(value || "no data").toLocaleString()}</span>
+        </dd>
+      </dl>
     </div>);
   }
 };

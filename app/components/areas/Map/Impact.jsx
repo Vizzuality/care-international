@@ -8,6 +8,8 @@ import CircleSVG from "components/svg/Circle";
 // import RhombusSVG from "components/svg/Rhombus";
 import { PruneCluster, PruneClusterForLeaflet } from 'exports-loader?PruneCluster,PruneClusterForLeaflet!prunecluster/dist/PruneCluster.js';
 
+import { logEvent } from 'utils/analytics';
+
 const getSVGIcon = (SVGComponent, props) => {
   let { value, program, size, hideLabel } = props;
   let label = value && value.toLocaleString();
@@ -65,6 +67,8 @@ class ImpactMapArea extends React.Component {
     const component = (<StorySummary story={story} router={this.context.router} />);
     const html = ReactDOMServer.renderToString(component);
     // return html;
+
+    logEvent('Impact', 'story', story.country);
 
     return window.L.popup({
       minWidth: 290,
