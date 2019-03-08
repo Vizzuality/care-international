@@ -157,7 +157,7 @@ const getImpactStatisticsSQL = withEscapedArgs((region, country) => {
     "ROUND(SUM(women_s_economic_empowerment)) AS wee_impact",
   ];
 
-  let query = `SELECT ${fields.join(", ")} FROM impact_data2017`;
+  let query = `SELECT ${fields.join(", ")} FROM impact_data2018`;
 
   if (country) {
     query += ` WHERE country = '${country}'`;
@@ -201,7 +201,7 @@ const getImpactRegionDataSQL = withEscapedArgs((region) => {
     subfields.push("country");
   }
 
-  let subquery = `SELECT ${subfields.join(", ")} FROM impact_data2017`;
+  let subquery = `SELECT ${subfields.join(", ")} FROM impact_data2018`;
 
   if (!region) {
     subquery += " GROUP BY region";
@@ -237,7 +237,7 @@ const getImpactStoriesSQL = withEscapedArgs(() => {
     `SELECT ${fields.join(", ")}`,
     "FROM story_new s INNER JOIN (",
     `  SELECT story_number, ${bounds}`,
-    "  FROM story_new s INNER JOIN impact_data2017 i ON s.iso = i.iso",
+    "  FROM story_new s INNER JOIN impact_data2018 i ON s.iso = i.iso",
     "  GROUP BY story_number",
     ") g ON s.story_number = g.story_number",
     "GROUP BY s.story_number, s.the_geom",
