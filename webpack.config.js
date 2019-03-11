@@ -11,7 +11,7 @@ const layerURL = (id) => `https://careinternational.carto.com/api/v2/viz/${id}/v
 
 // stop if required env variables aren't found
 
-["CARTODB_ACCOUNT", "BASE_LAYER_ID", "LABEL_LAYER_ID"].forEach((k) => {
+["CARTODB_ACCOUNT", "BASE_LAYER_ID", "LABEL_LAYER_ID", "GOOGLE_ANALYTICS"].forEach((k) => {
   if (!process.env[k]) {
     throw new Error(`Undefined required env variable ${k}`);
   }
@@ -43,7 +43,11 @@ const productionPlugins = [
   new webpack.DefinePlugin({
     "process.env": {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      GITHUB_PAGES_FOLDER: JSON.stringify(process.env.GITHUB_PAGES_FOLDER)
+      GITHUB_PAGES_FOLDER: JSON.stringify(process.env.GITHUB_PAGES_FOLDER),
+      GOOGLE_ANALYTICS: JSON.stringify(process.env.GOOGLE_ANALYTICS),
+      BASE_LAYER_ID: JSON.stringify(process.env.BASE_LAYER_ID),
+      LABEL_LAYER_ID: JSON.stringify(process.env.LABEL_LAYER_ID),
+      CARTODB_ACCOUNT: JSON.stringify(process.env.CARTODB_ACCOUNT),
     },
   }),
   new webpack.optimize.UglifyJsPlugin({
