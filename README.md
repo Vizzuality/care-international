@@ -20,6 +20,11 @@ In development mode,
 
 create a `.env` file
 
+BASE_LAYER_ID=
+LABEL_LAYER_ID=
+CARTODB_ACCOUNT=
+GOOGLR_ANALYTICS=
+
 And run local server running:
 
 ```bash
