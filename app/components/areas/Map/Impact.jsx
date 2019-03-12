@@ -5,7 +5,6 @@ import ReactDOMServer from "react-dom/server";
 import ImpactLegend from "components/content/ImpactLegend";
 import StorySummary from "components/elements/StorySummary";
 import CircleSVG from "components/svg/Circle";
-// import RhombusSVG from "components/svg/Rhombus";
 import { PruneCluster, PruneClusterForLeaflet } from 'exports-loader?PruneCluster,PruneClusterForLeaflet!prunecluster/dist/PruneCluster.js';
 
 import { logEvent } from 'utils/analytics';
@@ -66,7 +65,6 @@ class ImpactMapArea extends React.Component {
   getPopup(story) {
     const component = (<StorySummary story={story} router={this.context.router} />);
     const html = ReactDOMServer.renderToString(component);
-    // return html;
 
     logEvent('Impact', 'story', story.country);
 

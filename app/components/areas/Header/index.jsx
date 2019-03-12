@@ -13,7 +13,6 @@ class HeaderArea extends React.Component {
   };
 
   render() {
-    // const prefix = process.env.GITHUB_PAGES_FOLDER === 'true' || process.env.GITHUB_PAGES_FOLDER === true ? '/care-international' : '';
     const prefix = '';
 
     return (<div id="header">
