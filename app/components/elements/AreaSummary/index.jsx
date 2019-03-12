@@ -37,7 +37,9 @@ class AreaSummary extends React.Component {
       <div className={classname(
         location.href.includes("reach") ? 'reach' : 'impact',
         'c-area-summary')}>
-        <div className="area-summary-wrapper">
+        <div className={classname(
+        location.href.includes("reach") ? 'reach' : 'impact',
+        'area-summary-wrapper')}>
           <span dangerouslySetInnerHTML={{ __html: title }} />
           {program !== "overall" && (<span className="subtitle">
             {programs.find((p) => p.id === program).label}

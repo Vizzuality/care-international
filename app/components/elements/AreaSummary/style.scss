@@ -3,18 +3,24 @@
 
 .c-area-summary {
   &.reach {
-      > span {
-        margin: auto 0;
-      }
+    flex-direction: column;
+    > span {
+      margin: auto 0;
+    }
   }
+
   .area-summary-wrapper {
     display: flex;
     align-items: baseline;
+    &.impact {
+      display: flex;
+      flex-direction: column;
+    }
     @media #{$mq-mobile} {
       > span {
         display: block;
       }
-     }
+    }
   }
 
   .select-menu {
@@ -65,8 +71,5 @@
       text-transform: uppercase;
       padding-bottom: 7px;
     }
-  }
-  span.area-summary-data {
-    padding-left: 5px;
   }
 }
