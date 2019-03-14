@@ -41,9 +41,6 @@ class AreaSummary extends React.Component {
         location.href.includes("reach") ? 'reach' : 'impact',
         'area-summary-wrapper')}>
           <span dangerouslySetInnerHTML={{ __html: title }} />
-          {program !== "overall" && (<span className="subtitle">
-            {programs.find((p) => p.id === program).label}
-          </span>)}
           {location.href.includes("reach") &&
             <div className="select-menu">
               <Select
@@ -63,6 +60,9 @@ class AreaSummary extends React.Component {
               />
             </div>}
         </div>
+        {program !== "overall" && (<span className="subtitle">
+            {programs.find((p) => p.id === program).label}
+          </span>)}
         <span className="area-summary-data">{(value || "no data").toLocaleString()}</span>
       </div>
     </div>);
