@@ -37,7 +37,7 @@ class ReachLegend extends React.Component {
               <span>No participants recorded or other type of activities</span>
             </li>
             <li className="care-member">
-              <span>CARE International Members or Affiliate Members</span>
+              <span>CARE International Member, Candidate or Affiliate</span>
             </li>
           </ul>
         </li>
