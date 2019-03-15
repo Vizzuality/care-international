@@ -104,16 +104,16 @@ const getReachStatisticsCountriesSQL = withEscapedArgs((country, year = 2016) =>
     "num_projects_and_initiatives AS overall_projects_and_initiatives",
     "COALESCE(percent_women_of_direct_participants, 0) * num_direct_participants AS overall_direct_participants_women",
     "COALESCE(percent_women_of_indirect_participants, 0) * num_indirect_participants AS overall_indirect_participants_women",
-    // "COALESCE(percent_fnscc_women_direct_participants, 0) * num_fnscc_direct_participants AS fnscc_direct_participants_women",
-    // "COALESCE(percent_fnscc_women_indirect_participants, 0) * num_fnscc_indirect_participants AS fnscc_indirect_participants_women",
-    // "COALESCE(percent_hum_women_direct_participants, 0) * num_hum_direct_participants AS hum_direct_participants_women",
-    // "COALESCE(percent_hum_women_indirect_participants, 0) * num_hum_indirect_participants AS hum_indirect_participants_women",
-    // "COALESCE(percent_lffv_women_direct_participants, 0) * num_lffv_direct_participants AS lffv_direct_participants_women",
-    // "COALESCE(percent_lffv_women_indirect_participants, 0) * num_lffv_indirect_participants AS lffv_indirect_participants_women",
-    // "COALESCE(percent_wee_women_direct_participants, 0) * num_wee_direct_participants AS wee_direct_participants_women",
-    // "COALESCE(percent_wee_women_indirect_participants, 0) * num_wee_indirect_participants AS wee_indirect_participants_women",
-    // "COALESCE(percent_srmh_women_direct_participants, 0) * num_srmh_direct_participants AS srmh_direct_participants_women",
-    // "COALESCE(percent_srmh_women_indirect_participants, 0) * num_srmh_indirect_participants AS srmh_indirect_participants_women",
+    "COALESCE(percent_fnscc_women_direct_participants, 0) * num_fnscc_direct_participants AS fnscc_direct_participants_women",
+    "COALESCE(percent_fnscc_women_indirect_participants, 0) * num_fnscc_indirect_participants AS fnscc_indirect_participants_women",
+    "COALESCE(percent_hum_women_direct_participants, 0) * num_hum_direct_participants AS hum_direct_participants_women",
+    "COALESCE(percent_hum_women_indirect_participants, 0) * num_hum_indirect_participants AS hum_indirect_participants_women",
+    "COALESCE(percent_lffv_women_direct_participants, 0) * num_lffv_direct_participants AS lffv_direct_participants_women",
+    "COALESCE(percent_lffv_women_indirect_participants, 0) * num_lffv_indirect_participants AS lffv_indirect_participants_women",
+    "COALESCE(percent_wee_women_direct_participants, 0) * num_wee_direct_participants AS wee_direct_participants_women",
+    "COALESCE(percent_wee_women_indirect_participants, 0) * num_wee_indirect_participants AS wee_indirect_participants_women",
+    "COALESCE(percent_srmh_women_direct_participants, 0) * num_srmh_direct_participants AS srmh_direct_participants_women",
+    "COALESCE(percent_srmh_women_indirect_participants, 0) * num_srmh_indirect_participants AS srmh_indirect_participants_women",
   ];
 
   return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE country = '${country || "Total"}'`;
@@ -150,16 +150,16 @@ const getReachStatisticsRegionsSQL = withEscapedArgs((region, year = 2016) => {
     "SUM(num_projects_and_initiatives) AS overall_projects_and_initiatives",
     "SUM(COALESCE(percent_women_of_direct_participants, 0) * num_direct_participants) AS overall_direct_participants_women",
     "SUM(COALESCE(percent_women_of_indirect_participants, 0) * num_indirect_participants) AS overall_indirect_participants_women",
-      // "SUM(COALESCE(percent_fnscc_women_direct_participants, 0) * num_fnscc_direct_participants) AS fnscc_direct_participants_women",
-      // "SUM(COALESCE(percent_fnscc_women_indirect_participants, 0) * num_fnscc_indirect_participants) AS fnscc_indirect_participants_women",
-      // "SUM(COALESCE(percent_hum_women_direct_participants, 0) * num_hum_direct_participants) AS hum_direct_participants_women",
-      // "SUM(COALESCE(percent_hum_women_indirect_participants, 0) * num_hum_indirect_participants) AS hum_indirect_participants_women",
-      // "SUM(COALESCE(percent_lffv_women_direct_participants, 0) * num_lffv_direct_participants) AS lffv_direct_participants_women",
-      // "SUM(COALESCE(percent_lffv_women_indirect_participants, 0) * num_lffv_indirect_participants) AS lffv_indirect_participants_women",
-      // "SUM(COALESCE(percent_wee_women_direct_participants, 0) * num_wee_direct_participants) AS wee_direct_participants_women",
-      // "SUM(COALESCE(percent_wee_women_indirect_participants, 0) * num_wee_indirect_participants) AS wee_indirect_participants_women",
-      // "SUM(COALESCE(percent_srmh_women_direct_participants, 0) * num_srmh_direct_participants) AS srmh_direct_participants_women",
-      // "SUM(COALESCE(percent_srmh_women_indirect_participants, 0) * num_srmh_indirect_participants) AS srmh_indirect_participants_women",
+    "SUM(COALESCE(percent_fnscc_women_direct_participants, 0) * num_fnscc_direct_participants) AS fnscc_direct_participants_women",
+    "SUM(COALESCE(percent_fnscc_women_indirect_participants, 0) * num_fnscc_indirect_participants) AS fnscc_indirect_participants_women",
+    "SUM(COALESCE(percent_hum_women_direct_participants, 0) * num_hum_direct_participants) AS hum_direct_participants_women",
+    "SUM(COALESCE(percent_hum_women_indirect_participants, 0) * num_hum_indirect_participants) AS hum_indirect_participants_women",
+    "SUM(COALESCE(percent_lffv_women_direct_participants, 0) * num_lffv_direct_participants) AS lffv_direct_participants_women",
+    "SUM(COALESCE(percent_lffv_women_indirect_participants, 0) * num_lffv_indirect_participants) AS lffv_indirect_participants_women",
+    "SUM(COALESCE(percent_wee_women_direct_participants, 0) * num_wee_direct_participants) AS wee_direct_participants_women",
+    "SUM(COALESCE(percent_wee_women_indirect_participants, 0) * num_wee_indirect_participants) AS wee_indirect_participants_women",
+    "SUM(COALESCE(percent_srmh_women_direct_participants, 0) * num_srmh_direct_participants) AS srmh_direct_participants_women",
+    "SUM(COALESCE(percent_srmh_women_indirect_participants, 0) * num_srmh_indirect_participants) AS srmh_indirect_participants_women",
   ];
 
   return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE region = '${region}'`;
@@ -263,12 +263,12 @@ const getImpactStoriesSQL = withEscapedArgs(() => {
     "GROUP BY s.story_number, s.the_geom",
   ].join(" ");
 });
-
-const getImpactStoriesByCountrySQL = withEscapedArgs(() => {
+const getImpactStoriesByCountrySQL = withEscapedArgs((country) => {
   const fields = [
     "s.story_number AS story_number",
     "ST_AsGeoJSON(s.the_geom) as country_centroid",
     "s.country AS country",
+    "s.region AS region",
     "AVG(ST_X(the_geom)) AS lon",
     "AVG(ST_Y(the_geom)) AS lat",
     "MIN(story) AS story",
@@ -278,7 +278,8 @@ const getImpactStoriesByCountrySQL = withEscapedArgs(() => {
   return [
     `SELECT ${fields.join(", ")}`,
     "FROM story_new s",
-    "GROUP BY s.story_number, s.country, s.the_geom",
+    `${country ? ` WHERE s.country ='${country}'` : ''}`,
+    "GROUP BY s.story_number, s.country, s.region, s.the_geom"
   ].join(" ");
 });
 
