@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import AppLink from "components/elements/AppLink";
 import buckets from "resources/buckets.json";
 
 import "./style.scss";

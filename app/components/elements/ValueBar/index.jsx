@@ -14,41 +14,12 @@ class ValueBar extends React.Component {
 
   render() {
 
-    let widthValue;
+    const value = this.props.value;
+    const ranges = [0, 1000, 5000, 10000, 20000, 50000, 100000, 500000, 1000000, 10000000, 50000000];
+    const widths = [16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176];
 
-    if (0 < this.props.value && this.props.value <= 1.000) {
-      widthValue = 16;
-    }
-    else if (1.000 < this.props.value && this.props.value <= 5.000) {
-      widthValue = 32;
-    }
-    else if (5.000 < this.props.value && this.props.value <= 10.000) {
-      widthValue = 48;
-    }
-    else if (10.000 < this.props.value && this.props.value <= 20.000) {
-      widthValue = 64;
-    }
-    else if (20.000 < this.props.value && this.props.value <= 50.000) {
-      widthValue = 80;
-    }
-    else if (50000 < this.props.value && this.props.value <= 100000) {
-      widthValue = 96;
-    }
-    else if (100000 < this.props.value && this.props.value <= 500000) {
-      widthValue = 112;
-    }
-    else if (500000 < this.props.value && this.props.value <= 1000000) {
-      widthValue = 128;
-    }
-    else if (1000000 < this.props.value && this.props.value <= 10000000) {
-      widthValue = 144;
-    }
-    else if (10000000 < this.props.value && this.props.value <= 50000000) {
-      widthValue = 160;
-    }
-    else {
-      widthValue = 176;
-    }
+    const index = ranges.findIndex((r, i) => value > r && value <= ranges[i + 1]);
+    const widthValue = widths[index] || widths[widths.length - 1];
 
     let styles = {
       current: {
