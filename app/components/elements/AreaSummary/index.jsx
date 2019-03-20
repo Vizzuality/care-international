@@ -34,14 +34,17 @@ class AreaSummary extends React.Component {
     let { title, value, program } = this.props;
     const { year } = this.state;
     return (<div className="content">
-      <div className={classname(
-        location.href.includes("reach") ? 'reach' : 'impact',
-        'c-area-summary')}>
-        <div className="area-summary-wrapper">
+      <div className={classname({
+          'c-area-summary': true,
+          'impact': location.href.includes("impact"),
+          'reach': location.href.includes("reach")
+        })}>
+        <div className={classname({
+          'area-summary-wrapper': true,
+          'impact': location.href.includes("impact"),
+          'reach': location.href.includes("reach")
+        })}>
           <span dangerouslySetInnerHTML={{ __html: title }} />
-          {program !== "overall" && (<span className="subtitle">
-            {programs.find((p) => p.id === program).label}
-          </span>)}
           {location.href.includes("reach") &&
             <div className="select-menu">
               <Select
@@ -61,6 +64,9 @@ class AreaSummary extends React.Component {
               />
             </div>}
         </div>
+        {program !== "overall" && (<span className="subtitle">
+            {programs.find((p) => p.id === program).label}
+          </span>)}
         <span className="area-summary-data">{(value || "no data").toLocaleString()}</span>
       </div>
     </div>);

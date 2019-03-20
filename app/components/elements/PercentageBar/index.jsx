@@ -33,7 +33,6 @@ class PercentageBar extends React.Component {
       {this.props.children.split('.',1)}
     </div>);
   }
-
 }
 
 export default PercentageBar;
