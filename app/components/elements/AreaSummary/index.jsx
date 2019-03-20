@@ -34,12 +34,16 @@ class AreaSummary extends React.Component {
     let { title, value, program } = this.props;
     const { year } = this.state;
     return (<div className="content">
-      <div className={classname(
-        location.href.includes("reach") ? 'reach' : 'impact',
-        'c-area-summary')}>
-        <div className={classname(
-        location.href.includes("reach") ? 'reach' : 'impact',
-        'area-summary-wrapper')}>
+      <div className={classname({
+          'c-area-summary': true,
+          'impact': location.href.includes("impact"),
+          'reach': location.href.includes("reach")
+        })}>
+        <div className={classname({
+          'area-summary-wrapper': true,
+          'impact': location.href.includes("impact"),
+          'reach': location.href.includes("reach")
+        })}>
           <span dangerouslySetInnerHTML={{ __html: title }} />
           {location.href.includes("reach") &&
             <div className="select-menu">
