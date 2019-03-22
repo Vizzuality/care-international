@@ -70,7 +70,7 @@ const fetchReachData = (region, country, year = 2016) => {
 
   return window.Promise.all([
     getStatistics,
-    (region || country) && getBounds("reach_data", region, country),
+    (region || country) && getBounds("reach_data2018", region, country),
   ]);
 };
 
