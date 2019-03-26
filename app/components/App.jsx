@@ -101,23 +101,15 @@ class App extends React.PureComponent {
 
     switch (navigation.mainView) {
       case "reach":
-        fetchReachData(navigation.region, navigation.country, navigation.year, boundsDictionary)
+        fetchReachData(navigation.region, navigation.country, navigation.year)
           .then(([statistics, bounds]) => {
             this.setState({
               loading: false,
               data: {
                 statistics: statistics,
-                bounds: bounds,
+                bounds: boundsDictionary[navigation.country] || bounds
               },
             });
-            if(boundsDictionary[navigation.country]) {
-              this.setState({
-                data: {
-                  statistics: statistics,
-                  bounds: boundsDictionary[navigation.country]
-                }
-              })
-            }
           });
         break;
 

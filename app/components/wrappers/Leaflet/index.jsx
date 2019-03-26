@@ -44,9 +44,7 @@ class LeafletProvider extends React.PureComponent {
       minZoom: 2,
       maxZoom: 7,
       zoomControl: false,
-    })
-    console.log(map)
-    ;
+    });
     window.cartodb.createLayer(this.map, config.cartodb.layer.base, {
       https: true,
     }).addTo(this.map).done((layer) => {
