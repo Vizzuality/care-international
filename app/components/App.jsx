@@ -7,6 +7,7 @@ import navigationProps from "props/navigation";
 import getLocation from "lib/location";
 import { setKey, getKey } from "lib/storage";
 import { fetchReachData, fetchImpactData } from "lib/remote";
+import { boundsDictionary } from "resources/coordinates";
 
 import { logEvent } from "utils/analytics";
 
@@ -100,35 +101,24 @@ class App extends React.PureComponent {
 
     switch (navigation.mainView) {
       case "reach":
-        fetchReachData(navigation.region, navigation.country, navigation.year)
+        fetchReachData(navigation.region, navigation.country, navigation.year, boundsDictionary)
           .then(([statistics, bounds]) => {
-
-            if(navigation.country === 'Fiji') {
+            this.setState({
+              loading: false,
+              data: {
+                statistics: statistics,
+                bounds: bounds,
+              },
+            });
+            if(boundsDictionary[navigation.country]) {
               this.setState({
-                loading: false,
                 data: {
                   statistics: statistics,
-                  bounds: [
-                    [-12.47527435, 176],
-                    [-21.71111419, 179]
-                  ]
+                  bounds: boundsDictionary[navigation.country]
                 }
-                // Fiji's geometry has points lying on both sides of the 180º longitude line
-                // this causes issues with cartojs's get bounds function.
               })
-            } else {
-              this.setState({
-                loading: false,
-                data: {
-                  statistics: statistics,
-                  bounds: bounds,
-                },
-              });
             }
-
-
           });
-
         break;
 
       case "impact":

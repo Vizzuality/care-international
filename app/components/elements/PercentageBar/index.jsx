@@ -13,7 +13,7 @@ class PercentageBar extends React.Component {
   };
 
   render() {
-    let percentage = Math.round((this.props.value / this.props.maxValue) * 100);
+      let percentage = Math.round((this.props.value / this.props.maxValue) * 100);
     let styles = {
       current: {
         width: `${percentage}%`,

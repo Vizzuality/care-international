@@ -155,6 +155,8 @@ class ImpactMapArea extends React.Component {
 
         if (!region && !country) return handleMapChange(markersArea[0].data.region);
 
+        console.log('HAMIGO')
+
         // Open spider
         pruneCluster._map.fire('overlappingmarkers', {
           cluster: pruneCluster,
