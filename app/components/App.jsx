@@ -7,6 +7,7 @@ import navigationProps from "props/navigation";
 import getLocation from "lib/location";
 import { setKey, getKey } from "lib/storage";
 import { fetchReachData, fetchImpactData } from "lib/remote";
+import { boundsDictionary } from "resources/coordinates";
 
 import { logEvent } from "utils/analytics";
 
@@ -106,12 +107,10 @@ class App extends React.PureComponent {
               loading: false,
               data: {
                 statistics: statistics,
-                bounds: bounds,
+                bounds: boundsDictionary[navigation.country] || bounds
               },
-            }
-);
+            });
           });
-
         break;
 
       case "impact":

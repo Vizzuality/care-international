@@ -12,7 +12,6 @@ class LeafletProvider extends React.PureComponent {
   static childContextTypes = {
     map: PropTypes.object,
   }
-
   static propTypes = {
     bounds: PropTypes.array,
     initialZoom: PropTypes.number,
@@ -46,13 +45,11 @@ class LeafletProvider extends React.PureComponent {
       maxZoom: 7,
       zoomControl: false,
     });
-
     window.cartodb.createLayer(this.map, config.cartodb.layer.base, {
       https: true,
     }).addTo(this.map).done((layer) => {
       layer.setZIndex(0);
     });
-
     window.cartodb.createLayer(this.map, config.cartodb.layer.label, {
       https: true,
     }).addTo(this.map).done((layer) => {
