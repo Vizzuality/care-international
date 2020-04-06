@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import { setKey } from "lib/storage";
+import { isGHPages } from "utils/environment.js";
 
 import AppWrapper from "components/AppWrapper";
 
 class Routes extends React.Component {
 
   render() {
-    const isGHPages = window.location.href.includes('vizzuality.github.io');
     const Router = isGHPages ? HashRouter : BrowserRouter;
 
     // Enabling modal when user go using origin URL
