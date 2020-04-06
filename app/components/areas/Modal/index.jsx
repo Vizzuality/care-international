@@ -11,9 +11,9 @@ import ImpactLegendContent from "components/content/ImpactLegend";
 class ModalArea extends React.Component {
 
   static propTypes = {
+    handleToggleModal: PropTypes.func.isRequired,
     modal: PropTypes.string,
     texts: PropTypes.object.isRequired,
-    handleToggleModal: PropTypes.func.isRequired,
     subView: PropTypes.string,
     program: PropTypes.string,
   };
@@ -23,13 +23,20 @@ class ModalArea extends React.Component {
   };
 
   render() {
+    const {
+      handleToggleModal,
+      modal,
+      texts,
+      subView,
+      program,
+     } = this.props;
 
     let modals = [
       {
         id: "about",
         component: AboutModalContent,
         props: {
-          handleClose: () => this.props.handleToggleModal(null),
+          handleClose: () => handleToggleModal(null),
         },
       },
       {
@@ -40,16 +47,16 @@ class ModalArea extends React.Component {
         id: "reachLegend",
         component: ReachLegendContent,
         props: {
-          subView: this.props.subView,
-          program: this.props.program,
-          handleAboutClick: () => this.props.handleToggleModal("aboutReach"),
+          subView: subView,
+          program: program,
+          handleAboutClick: () => handleToggleModal("aboutReach"),
         },
       },
       {
         id: "impactLegend",
         component: ImpactLegendContent,
         props: {
-          handleAboutClick: () => this.props.handleToggleModal("aboutImpact"),
+          handleAboutClick: () => handleToggleModal("aboutImpact"),
         },
       },
       {
@@ -57,7 +64,7 @@ class ModalArea extends React.Component {
         component: GenericModalContent,
         props: {
           title: "About Reach Data",
-          text: this.props.texts.reach_data && this.props.texts.reach_data.message,
+          text: texts.reach_data && texts.reach_data.message,
         },
       },
       {
@@ -65,7 +72,7 @@ class ModalArea extends React.Component {
         component: GenericModalContent,
         props: {
           title: "About Impact Data",
-          text: this.props.texts.impact_data && this.props.texts.impact_data.message,
+          text: texts.impact_data && texts.impact_data.message,
         },
       },
       {
@@ -73,7 +80,7 @@ class ModalArea extends React.Component {
         component: GenericModalContent,
         props: {
           title: "About Direct Reach",
-          text: this.props.texts.direct && this.props.texts.direct.message,
+          text: texts.direct && texts.direct.message,
         },
       },
       {
@@ -81,16 +88,16 @@ class ModalArea extends React.Component {
         component: GenericModalContent,
         props: {
           title: "About Indirect Reach",
-          text: this.props.texts.indirect && this.props.texts.indirect.message,
+          text: texts.indirect && texts.indirect.message,
         },
       },
     ];
 
-    let modalContent = modals.find((modal) => modal.id === this.props.modal) || null;
+    let modalContent = modals.find((content) => content.id === modal) || null;
 
     return modalContent && (<ModalBox
       id={modalContent.id}
-      handleClose={() => this.props.handleToggleModal(null)}
+      handleClose={() => handleToggleModal(null)}
       {...modalContent.props}
     >
       <modalContent.component {...modalContent.props} />

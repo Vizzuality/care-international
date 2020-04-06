@@ -39,6 +39,12 @@ const getYears = () =>  new window.Promise((resolve, reject) => {
     .error((error) => reject(error));
 });
 
+const getIntroMessage = (year) => new window.Promise((resolve, reject) => {
+  cartoSQL.execute(getIntroMessageSQL(year))
+    .done((result) => resolve(result.rows[0].message))
+    .error((error) => reject(error));
+});
+
 const fetchGlobalData = (year) => {
   let getTexts = new window.Promise((resolve, reject) => {
     cartoSQL.execute(getTextsSQL())
@@ -117,4 +123,5 @@ export {
   fetchImpactData,
   getLastYear,
   getYears,
+  getIntroMessage,
 };

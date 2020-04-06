@@ -31,6 +31,10 @@ const getLastYearSQL = withEscapedArgs(() => {
   return "SELECT max(year) FROM years_control";
 });
 
+const getIntroMessageSQL = withEscapedArgs((year) => {
+  return `SELECT message,year FROM years_control WHERE year=${year} AND message IS NOT NULL`;
+});
+
 const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
   let suffix = year.toString() === "2016" ? "" : year.toString();
 
@@ -310,6 +314,7 @@ export {
   getTextsSQL,
   getYearsSQL,
   getLastYearSQL,
+  getIntroMessageSQL,
   getReachStatisticsCountriesSQL,
   getReachStatisticsRegionsSQL,
   getReachMapCountriesSQL,
