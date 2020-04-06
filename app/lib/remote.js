@@ -45,6 +45,12 @@ const getIntroMessage = (year) => new window.Promise((resolve, reject) => {
     .error((error) => reject(error));
 });
 
+const getStoriesFiltered = (stories, program) => stories
+  .filter(story => story.outcomes
+  .filter(outcome => outcome === program || program === "overall" ).length > 0)
+  .sort((a, b) => (a.countries > b.countries) ? 1 : -1);
+
+
 const fetchGlobalData = (year) => {
   let getTexts = new window.Promise((resolve, reject) => {
     cartoSQL.execute(getTextsSQL())
@@ -114,7 +120,6 @@ const fetchImpactData = (region, country, year) => {
     (region || country) && getBounds(`impact_data${year}`, region, country),
   ]);
 
-
 };
 
 export {
@@ -124,4 +129,5 @@ export {
   getLastYear,
   getYears,
   getIntroMessage,
+  getStoriesFiltered,
 };
