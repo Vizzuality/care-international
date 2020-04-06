@@ -1,5 +1,8 @@
 import {
   getTextsSQL,
+  getYearsSQL,
+  getLastYearSQL,
+  getIntroMessageSQL,
   getReachStatisticsCountriesSQL,
   getReachStatisticsRegionsSQL,
   getImpactStatisticsSQL,
@@ -24,7 +27,31 @@ const getBounds = (table, region, country) => {
   });
 };
 
-const fetchGlobalData = () => {
+const getLastYear = () => new window.Promise((resolve, reject) => {
+  cartoSQL.execute(getLastYearSQL())
+    .done((result) => resolve(result.rows[0].max))
+    .error((error) => reject(error));
+});
+
+const getYears = () =>  new window.Promise((resolve, reject) => {
+  cartoSQL.execute(getYearsSQL())
+    .done((result) => resolve(result.rows.map(res => res.year)))
+    .error((error) => reject(error));
+});
+
+const getIntroMessage = (year) => new window.Promise((resolve, reject) => {
+  cartoSQL.execute(getIntroMessageSQL(year))
+    .done((result) => resolve(result.rows[0].message))
+    .error((error) => reject(error));
+});
+
+const getStoriesFiltered = (stories, program) => stories
+  .filter(story => story.outcomes
+  .filter(outcome => outcome === program || program === "overall" ).length > 0)
+  .sort((a, b) => (a.countries > b.countries) ? 1 : -1);
+
+
+const fetchGlobalData = (year) => {
   let getTexts = new window.Promise((resolve, reject) => {
     cartoSQL.execute(getTextsSQL())
       .done((result) => {
@@ -38,7 +65,7 @@ const fetchGlobalData = () => {
   });
 
   let getStories = new window.Promise((resolve, reject) => {
-    cartoSQL.execute(getImpactStoriesSQL())
+    cartoSQL.execute(getImpactStoriesSQL(year))
       .done((result) => resolve(result.rows))
       .error((error) => reject(error));
   });
@@ -54,10 +81,10 @@ const fetchGlobalData = () => {
     getStories,
     getStoriesByCountry,
   ]);
-
 };
 
-const fetchReachData = (region, country, year = 2016) => {
+const fetchReachData = (region, country, year) => {
+
   let sql = region ?
     getReachStatisticsRegionsSQL(region, year) :
     getReachStatisticsCountriesSQL(country, year);
@@ -70,11 +97,11 @@ const fetchReachData = (region, country, year = 2016) => {
 
   return window.Promise.all([
     getStatistics,
-    (region || country) && getBounds("reach_data2018", region, country),
+    (region || country) && getBounds(`reach_data${year}`, region, country),
   ]);
 };
 
-const fetchImpactData = (region, country) => {
+const fetchImpactData = (region, country, year) => {
   let getStatistics = new window.Promise((resolve, reject) => {
     cartoSQL.execute(getImpactStatisticsSQL(region, country))
       .done((result) => resolve(result.rows[0]))
@@ -90,12 +117,17 @@ const fetchImpactData = (region, country) => {
   return window.Promise.all([
     getStatistics,
     getRegionData,
-    (region || country) && getBounds("impact_data2018", region, country),
+    (region || country) && getBounds(`impact_data${year}`, region, country),
   ]);
+
 };
 
 export {
   fetchGlobalData,
   fetchReachData,
   fetchImpactData,
+  getLastYear,
+  getYears,
+  getIntroMessage,
+  getStoriesFiltered,
 };

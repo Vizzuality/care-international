@@ -27,6 +27,8 @@ class Layout extends React.Component {
       statistics: PropTypes.object,
       regions: PropTypes.array,
       bounds: PropTypes.array,
+      years: PropTypes.array.isRequired,
+      year: PropTypes.array.isRequired,
     }).isRequired,
 
     handlers: PropTypes.shape({
@@ -57,13 +59,15 @@ class Layout extends React.Component {
     let {
       loading,
       navigation,
-      router
+      router,
     } = this.props;
 
     let {
       statistics,
       regions,
       bounds,
+      years,
+      year,
     } = this.props.data;
 
     let {
@@ -83,6 +87,8 @@ class Layout extends React.Component {
         data={{
           statistics,
           stories,
+          years,
+          year,
         }}
         handlers={{
           handleProgramChange,
@@ -123,11 +129,13 @@ class Layout extends React.Component {
       statistics,
       regions,
       bounds,
+      year,
     } = this.props.data;
 
     let {
       stories,
       storiesByCountry,
+      years,
     } = this.context.data;
 
 
@@ -149,6 +157,8 @@ class Layout extends React.Component {
         data={{
           statistics,
           stories,
+          years,
+          year,
         }}
         handlers={{
           handleProgramChange,

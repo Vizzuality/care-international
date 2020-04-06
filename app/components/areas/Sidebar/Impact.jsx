@@ -8,9 +8,9 @@ import BarWrapper from "components/wrappers/Bar";
 import ValueBar from "components/elements/ValueBar";
 import CircleSVG from "components/svg/Circle";
 
-import getLocation from "lib/location";
-import programs from "resources/programs.json";
+import { getStoriesFiltered } from "lib/remote";
 
+import programs from "resources/programs.json";
 
 class ImpactSidebarArea extends React.Component {
 
@@ -23,6 +23,7 @@ class ImpactSidebarArea extends React.Component {
     statistics: PropTypes.object.isRequired,
     stories: PropTypes.array,
     handleProgramChange: PropTypes.func.isRequired,
+
   }
 
   static defaultProps = {
@@ -35,14 +36,20 @@ class ImpactSidebarArea extends React.Component {
       program,
       statistics,
       handleProgramChange,
+      years,
+      year,
     } = this.props;
+
+    const storiesFiltered = getStoriesFiltered(stories, program);
 
     return (<div className="sidebar-content-impact">
 
       <AreaSummary
-        title="Total Population impacted<br /> by end of 2018"
+        title={`Total Population impacted<br /> by end of ${year}`}
         value={statistics[`${program}_impact`]}
         program={program}
+        years={years}
+        year={year}
       />
 
       <div className="filters">
@@ -76,7 +83,6 @@ class ImpactSidebarArea extends React.Component {
                     </li>
                   </ul>
                 </li>);
-
               })}
             </ul>
           </dd>
@@ -91,7 +97,7 @@ class ImpactSidebarArea extends React.Component {
           </dt>
           <dd>
             <ul>
-              {stories.map((story, n) => {
+              {storiesFiltered.map((story, n) => {
                 return (<li key={story.story_number + n}>
                   <ul className="story">
                     <li className="title">

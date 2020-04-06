@@ -1,4 +1,5 @@
 import buckets from "resources/buckets.json";
+import { isGHPages } from "utils/environment.js";
 
 const escapeArg = (s) => {
   if (s && typeof s === 'string') {
@@ -22,9 +23,20 @@ let getTextsSQL = withEscapedArgs(() => {
   return "SELECT * FROM messages";
 });
 
-const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
+const getYearsSQL = () => {
+  return "SELECT distinct(year) FROM years_control ORDER BY year DESC";
+};
 
-  const suffix = year.toString() === '2016' ? '' : year.toString();
+const getLastYearSQL = () => {
+  return "SELECT max(year) FROM years_control";
+};
+
+const getIntroMessageSQL = withEscapedArgs((year) => {
+  return `SELECT message,year FROM years_control WHERE year=${year} AND message IS NOT NULL`;
+});
+
+const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
+  let suffix = year.toString() === "2016" ? "" : year.toString();
 
   let directParticipantsVariable = reachVariables[program][0];
   let caseColumn = buckets.reach
@@ -44,13 +56,13 @@ const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
     "category ILIKE '%member%' AS care_member",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE ${dataField} IS NOT NULL`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${isGHPages ? suffix + "_staging" : suffix} WHERE ${dataField} IS NOT NULL`;
 
 });
 
 const getReachMapRegionsSQL = withEscapedArgs((program, year = 2016) => {
 
-  const suffix = year.toString() === '2016' ? '' : year.toString();
+  let suffix = year.toString() === '2016' ? '' : year.toString();
 
   let directParticipantsVariable = `SUM(${reachVariables[program][0]})`;
   let caseColumn = buckets.reach
@@ -61,20 +73,20 @@ const getReachMapRegionsSQL = withEscapedArgs((program, year = 2016) => {
     .join(" ");
   let fields = [
     "regions_complete_geometries.the_geom_webmercator AS the_geom_webmercator",
-    `reach_data${suffix}.region`,
+    `reach_data${isGHPages ? suffix + "_staging" : suffix}.region`,
     `'${program}' AS program`,
     "1 AS data",
     `CASE ${caseColumn} END AS bucket`,
     "false as care_member",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data${suffix} INNER JOIN regions_complete_geometries ON reach_data${suffix}.region = regions_complete_geometries.region GROUP BY reach_data${suffix}.region, regions_complete_geometries.the_geom_webmercator`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${isGHPages ? suffix + "_staging" : suffix} INNER JOIN regions_complete_geometries ON reach_data${suffix}.region = regions_complete_geometries.region GROUP BY reach_data${suffix}.region, regions_complete_geometries.the_geom_webmercator`;
 
 });
 
 const getReachStatisticsCountriesSQL = withEscapedArgs((country, year = 2016) => {
 
-  const suffix = year.toString() === '2016' ? '' : year.toString();
+  const suffix = year.toString() === "2016" ? "" : year.toString();
 
   let fields = [
     "fnscc_data::BOOL AS has_fnscc_data",
@@ -116,12 +128,12 @@ const getReachStatisticsCountriesSQL = withEscapedArgs((country, year = 2016) =>
     "COALESCE(percent_srmh_women_indirect_participants, 0) * num_srmh_indirect_participants AS srmh_indirect_participants_women",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE country = '${country || "Total"}'`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${isGHPages ? suffix + "_staging" : suffix} WHERE country = '${country || "Total"}'`;
 });
 
 const getReachStatisticsRegionsSQL = withEscapedArgs((region, year = 2016) => {
 
-  const suffix = year.toString() === '2016' ? '' : year.toString();
+  let suffix = year.toString() === '2016' ? '' : year.toString();
 
   let fields = [
     "true AS has_fnscc_data",
@@ -162,7 +174,7 @@ const getReachStatisticsRegionsSQL = withEscapedArgs((region, year = 2016) => {
     "SUM(COALESCE(percent_srmh_women_indirect_participants, 0) * num_srmh_indirect_participants) AS srmh_indirect_participants_women",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data${suffix} WHERE region = '${region}'`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${isGHPages ? suffix + "_staging" : suffix} WHERE region = '${region}'`;
 });
 
 
@@ -220,6 +232,7 @@ const getImpactRegionDataSQL = withEscapedArgs((region) => {
     subfields.push("country");
   }
 
+
   let subquery = `SELECT ${subfields.join(", ")} FROM impact_data2018`;
 
 
@@ -235,11 +248,10 @@ const getImpactRegionDataSQL = withEscapedArgs((region) => {
     "ST_Y(region_center) AS region_center_y",
     "*",
   ];
-
   return `SELECT ${fields.join(", ")} FROM (${subquery}) sq`;
 });
 
-const getImpactStoriesSQL = withEscapedArgs(() => {
+const getImpactStoriesSQL = withEscapedArgs((year) => {
   const bounds = ["XMIN", "XMAX", "YMIN", "YMAX"].map(s => `ST_${s}(ST_EXTENT(i.the_geom)) AS ${s}`).join(",");
 
   const fields = [
@@ -257,7 +269,7 @@ const getImpactStoriesSQL = withEscapedArgs(() => {
     `SELECT ${fields.join(", ")}`,
     "FROM story_new s INNER JOIN (",
     `  SELECT story_number, ${bounds}`,
-    "  FROM story_new s INNER JOIN impact_data2017 i ON s.iso = i.iso",
+    `  FROM story_new s INNER JOIN impact_data${year} i ON s.iso = i.iso`,
     "  GROUP BY story_number",
     ") g ON s.story_number = g.story_number",
     "GROUP BY s.story_number, s.the_geom",
@@ -300,6 +312,9 @@ const getBoundsSQL = withEscapedArgs((table, region, country) => {
 
 export {
   getTextsSQL,
+  getYearsSQL,
+  getLastYearSQL,
+  getIntroMessageSQL,
   getReachStatisticsCountriesSQL,
   getReachStatisticsRegionsSQL,
   getReachMapCountriesSQL,

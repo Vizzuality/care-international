@@ -1,29 +1,46 @@
 import React from "react";
 import { BrowserRouter, HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import { setKey } from "lib/storage";
+import { getLastYear } from 'lib/remote';
+import { isGHPages } from "utils/environment.js";
 
 import AppWrapper from "components/AppWrapper";
 
 class Routes extends React.Component {
 
+  constructor(...args) {
+    super(...args);
+
+    this.state = {
+      data: {
+        year: "",
+      },
+    };
+  }
+
+  componentDidMount () {
+    getLastYear().then(year => this.setState({ year }));
+  }
+
   render() {
-    const isGHPages = window.location.href.includes('vizzuality.github.io');
     const Router = isGHPages ? HashRouter : BrowserRouter;
+    const { year } = this.state;
 
     // Enabling modal when user go using origin URL
     const originUrls = [
-      'http://localhost:8080',
-      'https://vizzuality.github.io/care-international',
-      'https://impact.care-international.org'
+      "http://localhost:8080",
+      "https://vizzuality.github.io/care-international",
+      "https://impact.care-international.org",
     ];
     const matchOriginUrl = originUrls.find(o => (o === location.href || `${o}/` === location.href));
     if (matchOriginUrl) setKey("about-dismissed", false);
 
     return (<Router>
       <Switch>
-        {isGHPages && (<Redirect exact from="/care-international" to="/2018/reach/countries" />)}
-        <Redirect exact from="/" to="/2018/reach/countries" />
-        <Redirect exact from="/reach" to="/2018/reach/countries" />
+
+      {isGHPages && (<Redirect exact from="/care-international" to={`/${year}/reach/countries`} />)}
+        <Redirect exact from="/" to={`/${year}/reach/countries`} />
+        <Redirect exact from="/reach" to={`/${year}/reach/countries`} />
 
         <Route exact path="/:year/reach/countries" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
         <Route exact path="/:year/reach/countries/:country?" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />

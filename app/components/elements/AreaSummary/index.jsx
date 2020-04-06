@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Select from 'react-select';
-import classname from 'classnames';
-
+import Select from "react-select";
+import classname from "classnames";
 
 import programs from "resources/programs.json";
-import { years } from './constants';
 
 import "./style.scss";
 
@@ -14,35 +12,37 @@ class AreaSummary extends React.Component {
     title: PropTypes.string.isRequired,
     value: PropTypes.number,
     program: PropTypes.string.isRequired,
+    year: PropTypes.string,
+    years: PropTypes.array,
   }
 
-  state = {
-    year: '2018'
+  static defaultProps = {
+    year: "",
+    years: [],
   }
-
 
   handleChange = (e) => {
     const { router, country } = this.props;
     const selectedYear = e.value;
-    this.setState({ year: selectedYear })
+    this.setState({ year: selectedYear });
     country ?
       router.history.replace(`/${selectedYear}/reach/countries/${country}`)
-      : router.history.replace(`/${selectedYear}/reach/countries`)
+      : router.history.replace(`/${selectedYear}/reach/countries`);
   }
 
   render() {
-    let { title, value, program } = this.props;
-    const { year } = this.state;
+    let { title, value, program, years, year } = this.props;
+
     return (<div className="content">
       <div className={classname({
-          'c-area-summary': true,
-          'impact': location.href.includes("impact"),
-          'reach': location.href.includes("reach")
-        })}>
+        "c-area-summary": true,
+        "impact": location.href.includes("impact"),
+        "reach": location.href.includes("reach"),
+      })}>
         <div className={classname({
-          'area-summary-wrapper': true,
-          'impact': location.href.includes("impact"),
-          'reach': location.href.includes("reach")
+          "area-summary-wrapper": true,
+          "impact": location.href.includes("impact"),
+          "reach": location.href.includes("reach"),
         })}>
           <span dangerouslySetInnerHTML={{ __html: title }} />
           {location.href.includes("reach") &&
@@ -50,23 +50,23 @@ class AreaSummary extends React.Component {
               <Select
                 classNamePrefix="react-select"
                 options={years}
-                value={{label: year, value: year}}
+                value={{ label: year, value: year }}
                 isSearchable
                 onChange={this.handleChange}
                 theme={(theme) => ({
                   ...theme,
                   colors: {
                     ...theme.colors,
-                    primary25: 'rgba(240, 120, 28, 0.1)',
-                    primary: 'rgba(240, 120, 28, 0.9)',
+                    primary25: "rgba(240, 120, 28, 0.1)",
+                    primary: "rgba(240, 120, 28, 0.9)",
                   },
                 })}
               />
             </div>}
         </div>
         {program !== "overall" && (<span className="subtitle">
-            {programs.find((p) => p.id === program).label}
-          </span>)}
+          {programs.find((p) => p.id === program).label}
+        </span>)}
         <span className="area-summary-data">{(value || "no data").toLocaleString()}</span>
       </div>
     </div>);
