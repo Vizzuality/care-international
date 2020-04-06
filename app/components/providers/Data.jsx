@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { fetchGlobalData } from "lib/remote";
+import { fetchGlobalData, getLastYear } from "lib/remote";
 
 class DataProvider extends React.Component {
 
@@ -15,10 +15,11 @@ class DataProvider extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
-      loading: true,
+      loading: false,
       data: {
         texts: {},
         stories: [],
+        years: [],
       },
     };
   }
@@ -30,7 +31,8 @@ class DataProvider extends React.Component {
   }
 
   componentWillMount() {
-    fetchGlobalData()
+    getLastYear().then(year =>
+    fetchGlobalData(year)
       .then(([texts, stories, storiesByCountry]) => {
         this.setState({
           data: {
@@ -40,7 +42,8 @@ class DataProvider extends React.Component {
           },
           loading: false,
         });
-      });
+      })
+    );
   }
 
   render() {

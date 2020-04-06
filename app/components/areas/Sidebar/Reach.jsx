@@ -32,7 +32,7 @@ class ReachSidebarArea extends React.Component {
   componentWillUpdate(){
     const { country, program } = this.props;
     if (country && program ) {
-      logEvent('detailed data', country, program)
+      logEvent('detailed data', country, program);
     }
   }
 
@@ -43,7 +43,8 @@ class ReachSidebarArea extends React.Component {
       statistics,
       handleProgramChange,
       year,
-      router
+      years,
+      router,
     } = this.props;
 
     const maxValue = Math.max.apply(null, programs.map((p) => {
@@ -61,6 +62,8 @@ class ReachSidebarArea extends React.Component {
         program={program}
         router={router}
         country={country}
+        years={years}
+        year={year}
       />
       {!(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>

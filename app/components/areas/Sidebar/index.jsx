@@ -45,10 +45,9 @@ class SidebarArea extends React.Component {
   }
 
   render() {
-
     let {
       loading,
-      router
+      router,
     } = this.props;
 
     let {
@@ -67,6 +66,8 @@ class SidebarArea extends React.Component {
     let {
       statistics,
       stories,
+      years,
+      year: lastYear,
     } = this.props.data;
 
     let {
@@ -115,11 +116,14 @@ class SidebarArea extends React.Component {
       </div>
 
       <div className="sidebar-content">
-
         {mainView === "reach" && (<ReachSidebar
           program={program}
           country={country}
-          year={year}
+          year={year || lastYear}
+          years={years
+            .map(year => {
+              return { "label": year, "value": year };
+            })}
           statistics={statistics}
           handleProgramChange={handleProgramChange}
           handleAboutDirectReachClick={handleAboutDirectReachClick}
@@ -131,6 +135,7 @@ class SidebarArea extends React.Component {
           program={program}
           statistics={statistics}
           stories={stories}
+          year={lastYear}
           handleProgramChange={handleProgramChange}
         />)}
 

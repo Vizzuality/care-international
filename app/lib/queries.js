@@ -23,6 +23,14 @@ let getTextsSQL = withEscapedArgs(() => {
   return "SELECT * FROM messages";
 });
 
+const getYearsSQL = withEscapedArgs(() => {
+  return "SELECT distinct(year) FROM years_control ORDER BY year DESC";
+});
+
+const getLastYearSQL = withEscapedArgs(() => {
+  return "SELECT max(year) FROM years_control";
+});
+
 const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
   let suffix = year.toString() === "2016" ? "" : year.toString();
 
@@ -239,7 +247,7 @@ const getImpactRegionDataSQL = withEscapedArgs((region) => {
   return `SELECT ${fields.join(", ")} FROM (${subquery}) sq`;
 });
 
-const getImpactStoriesSQL = withEscapedArgs(() => {
+const getImpactStoriesSQL = withEscapedArgs((year) => {
   const bounds = ["XMIN", "XMAX", "YMIN", "YMAX"].map(s => `ST_${s}(ST_EXTENT(i.the_geom)) AS ${s}`).join(",");
 
   const fields = [
@@ -257,7 +265,7 @@ const getImpactStoriesSQL = withEscapedArgs(() => {
     `SELECT ${fields.join(", ")}`,
     "FROM story_new s INNER JOIN (",
     `  SELECT story_number, ${bounds}`,
-    `  FROM story_new s INNER JOIN impact_data2017 i ON s.iso = i.iso`,
+    `  FROM story_new s INNER JOIN impact_data${year} i ON s.iso = i.iso`,
     "  GROUP BY story_number",
     ") g ON s.story_number = g.story_number",
     "GROUP BY s.story_number, s.the_geom",
@@ -300,6 +308,8 @@ const getBoundsSQL = withEscapedArgs((table, region, country) => {
 
 export {
   getTextsSQL,
+  getYearsSQL,
+  getLastYearSQL,
   getReachStatisticsCountriesSQL,
   getReachStatisticsRegionsSQL,
   getReachMapCountriesSQL,

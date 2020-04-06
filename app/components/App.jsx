@@ -6,7 +6,7 @@ import Layout from "components/Layout";
 import navigationProps from "props/navigation";
 import getLocation from "lib/location";
 import { setKey, getKey } from "lib/storage";
-import { fetchReachData, fetchImpactData } from "lib/remote";
+import { getYears, getLastYear, fetchReachData, fetchImpactData } from "lib/remote";
 import { boundsDictionary } from "resources/coordinates";
 
 import { logEvent } from "utils/analytics";
@@ -29,14 +29,17 @@ class App extends React.PureComponent {
     super(...args);
 
     this.state = {
-      loading: true,
+      loading: false,
       data: {
         statistics: {},
         bounds: null,
+        years: [],
+        year: "",
       },
       modal: !getKey("about-dismissed") ? "about" : null,
     };
   }
+
 
   navigate(options) {
     let location = getLocation(options);
@@ -56,13 +59,13 @@ class App extends React.PureComponent {
     });
     if (this.props.navigation.mainView === "reach") {
       (this.props.navigation.program) ?
-      logEvent('Reach', 'year: ' + this.props.navigation.year, 'program: ' + this.props.navigation.program) :
-      logEvent('Reach', 'year: ' + this.props.navigation.year, 'overall')
+        logEvent('Reach', 'year: ' + this.props.navigation.year, 'program: ' + this.props.navigation.program) :
+        logEvent('Reach', 'year: ' + this.props.navigation.year, 'overall')
     }
     if (this.props.navigation.mainView === "impact") {
       (this.props.navigation.region) ?
-      logEvent('Impact area: ' + this.props.navigation.region, 'program: ' + this.props.navigation.program) :
-      logEvent('Impact trough years', 'Program: ', this.props.navigation.program )
+        logEvent('Impact area: ' + this.props.navigation.region, 'program: ' + this.props.navigation.program) :
+        logEvent('Impact trough years', 'Program: ', this.props.navigation.program)
     }
   }
 
@@ -98,33 +101,40 @@ class App extends React.PureComponent {
 
   fetchRemoteData() {
     let { navigation } = this.props;
-
     switch (navigation.mainView) {
       case "reach":
-        fetchReachData(navigation.region, navigation.country, navigation.year)
-          .then(([statistics, bounds]) => {
-            this.setState({
-              loading: false,
-              data: {
-                statistics: statistics,
-                bounds: boundsDictionary[navigation.country] || bounds
-              },
+        getYears().then(years => {
+          const year = navigation.year || Math.max.apply(years);
+          fetchReachData(navigation.region, navigation.country, year)
+            .then(([statistics, bounds]) => {
+              this.setState({
+                loading: false,
+                data: {
+                  statistics: statistics,
+                  bounds: boundsDictionary[navigation.country] || bounds,
+                  years: years,
+                  year: year,
+                },
+              });
             });
-          });
+        }
+        );
         break;
-
       case "impact":
-        fetchImpactData(navigation.region, navigation.country)
-          .then(([statistics, regions, bounds]) => {
-            this.setState({
-              loading: false,
-              data: {
-                statistics: statistics,
-                regions: regions,
-                bounds: bounds,
-              },
-            });
-          });
+        getLastYear().then(lastYear =>
+          fetchImpactData(navigation.region, navigation.country, lastYear)
+            .then(([statistics, regions, bounds]) => {
+              this.setState({
+                loading: false,
+                data: {
+                  statistics: statistics,
+                  regions: regions,
+                  bounds: bounds,
+                  year: lastYear,
+                },
+              });
+            })
+        );
         break;
     }
   }
