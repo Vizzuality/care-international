@@ -23,13 +23,13 @@ let getTextsSQL = withEscapedArgs(() => {
   return "SELECT * FROM messages";
 });
 
-const getYearsSQL = withEscapedArgs(() => {
+const getYearsSQL = () => {
   return "SELECT distinct(year) FROM years_control ORDER BY year DESC";
-});
+};
 
-const getLastYearSQL = withEscapedArgs(() => {
+const getLastYearSQL = () => {
   return "SELECT max(year) FROM years_control";
-});
+};
 
 const getIntroMessageSQL = withEscapedArgs((year) => {
   return `SELECT message,year FROM years_control WHERE year=${year} AND message IS NOT NULL`;
