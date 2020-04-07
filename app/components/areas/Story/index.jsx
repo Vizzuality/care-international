@@ -34,7 +34,7 @@ class Story extends React.Component {
           </li>
         </ul>
       </div>
-      {story.image && (<div className="img-wrapper" style={{ backgroundImage: `url(http://178.62.57.44/images/${story.image})` }} />)}
+      {story.image && (<div className="img-wrapper" style={{ backgroundImage: `url(http://impact.care-international.org/images/${story.image})` }} />)}
       <div className="close-button" onClick={handleCloseStory} />
       <div className="story-content">
         <div className="content">
