@@ -33,7 +33,7 @@ const getLastYear = () => new window.Promise((resolve, reject) => {
     .error((error) => reject(error));
 });
 
-const getYears = () =>  new window.Promise((resolve, reject) => {
+const getYears = () => new window.Promise((resolve, reject) => {
   cartoSQL.execute(getYearsSQL())
     .done((result) => resolve(result.rows.map(res => res.year)))
     .error((error) => reject(error));
@@ -45,10 +45,22 @@ const getIntroMessage = (year) => new window.Promise((resolve, reject) => {
     .error((error) => reject(error));
 });
 
-const getStoriesFiltered = (stories, program) => stories
-  .filter(story => story.outcomes
-  .filter(outcome => outcome === program || program === "overall" ).length > 0)
-  .sort((a, b) => (a.countries > b.countries) ? 1 : -1);
+const getStoriesFiltered = (stories, program, country, region) => {
+  let result = stories;
+
+  if (country) {
+    result = stories.filter(story => (story.countries.filter(c => c === country).length > 0));
+  }
+
+  if (region && !country) {
+    result = stories.filter(story => (story.region === region));
+  }
+
+  return result
+    .filter(story =>
+      (story.outcomes.filter(outcome => outcome === program || program === "overall").length > 0))
+    .sort((a, b) => (a.countries > b.countries) ? 1 : -1);
+};
 
 
 const fetchGlobalData = (year) => {

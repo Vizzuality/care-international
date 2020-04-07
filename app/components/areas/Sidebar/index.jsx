@@ -135,6 +135,8 @@ class SidebarArea extends React.Component {
           program={program}
           statistics={statistics}
           stories={stories}
+          country={country}
+          region={region}
           year={lastYear}
           handleProgramChange={handleProgramChange}
         />)}

@@ -28,7 +28,7 @@ class Layout extends React.Component {
       regions: PropTypes.array,
       bounds: PropTypes.array,
       years: PropTypes.array.isRequired,
-      year: PropTypes.array.isRequired,
+      year: PropTypes.array,
     }).isRequired,
 
     handlers: PropTypes.shape({
@@ -43,6 +43,7 @@ class Layout extends React.Component {
     data: PropTypes.shape({
       texts: PropTypes.object.isRequired,
       stories: PropTypes.array.isRequired,
+      year: "",
     }).isRequired,
   };
 
@@ -137,7 +138,6 @@ class Layout extends React.Component {
       storiesByCountry,
       years,
     } = this.context.data;
-
 
     let {
       handleProgramChange,

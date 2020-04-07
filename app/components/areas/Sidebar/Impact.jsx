@@ -23,7 +23,8 @@ class ImpactSidebarArea extends React.Component {
     statistics: PropTypes.object.isRequired,
     stories: PropTypes.array,
     handleProgramChange: PropTypes.func.isRequired,
-
+    years: PropTypes.array.isRequired,
+    year: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -36,11 +37,13 @@ class ImpactSidebarArea extends React.Component {
       program,
       statistics,
       handleProgramChange,
+      region,
+      country,
       years,
       year,
     } = this.props;
 
-    const storiesFiltered = getStoriesFiltered(stories, program);
+    const storiesFiltered = getStoriesFiltered(stories, program, country, region);
 
     return (<div className="sidebar-content-impact">
 

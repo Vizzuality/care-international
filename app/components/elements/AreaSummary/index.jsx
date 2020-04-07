@@ -12,7 +12,7 @@ class AreaSummary extends React.Component {
     title: PropTypes.string.isRequired,
     value: PropTypes.number,
     program: PropTypes.string.isRequired,
-    year: PropTypes.string,
+    year: PropTypes.number,
     years: PropTypes.array,
   }
 
