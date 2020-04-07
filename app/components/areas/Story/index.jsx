@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import * as images from "../../../images/stories/";
 import programs from "resources/programs.json";
 import "./style.scss";
 
@@ -24,8 +23,6 @@ class Story extends React.Component {
       handleCloseStory,
     } = this.props;
 
-    let image = story.image && images[story.image.substr(0, story.image.lastIndexOf("."))];
-
     return (<div id="story">
       <div className="show-mobile">
         <ul className="mobile-title">
@@ -37,7 +34,7 @@ class Story extends React.Component {
           </li>
         </ul>
       </div>
-      {image && (<div className="img-wrapper" style={{ backgroundImage: `url(${image})` }} />)}
+      {story.image && (<div className="img-wrapper" style={{ backgroundImage: `url(http://impact.care-international.org/images/${story.image})` }} />)}
       <div className="close-button" onClick={handleCloseStory} />
       <div className="story-content">
         <div className="content">
