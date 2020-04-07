@@ -24,7 +24,7 @@ let getTextsSQL = withEscapedArgs(() => {
 });
 
 const getYearsSQL = () => {
-  return "SELECT distinct(year) FROM years_control ORDER BY year DESC";
+  return "SELECT year FROM years_control ORDER BY year DESC";
 };
 
 const getLastYearSQL = () => {
@@ -258,6 +258,7 @@ const getImpactStoriesSQL = withEscapedArgs((year) => {
     "s.story_number AS story_number",
     "ST_AsGeoJSON(s.the_geom) as country_centroid",
     "MIN(g.XMIN) AS xmin, MIN(g.XMAX) AS xmax, MIN(g.YMIN) as ymin, MIN(g.YMAX) ymax",
+    "MIN(region) AS region",
     "MIN(image) AS image",
     "MIN(content) AS content",
     "MIN(story) AS story",

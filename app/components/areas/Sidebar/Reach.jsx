@@ -23,6 +23,8 @@ class ReachSidebarArea extends React.Component {
     handleProgramChange: PropTypes.func.isRequired,
     handleAboutDirectReachClick: PropTypes.func.isRequired,
     handleAboutIndirectReachClick: PropTypes.func.isRequired,
+    years: PropTypes.array.isRequired,
+    year: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
