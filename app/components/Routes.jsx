@@ -38,14 +38,14 @@ class Routes extends React.Component {
     return (<Router>
       <Switch>
 
-      {isGHPages && (<Redirect exact from="/care-international" to={`/${year}/reach/countries`} />)}
-        <Redirect exact from="/" to={`/${year}/reach/countries`} />
-        <Redirect exact from="/reach" to={`/${year}/reach/countries`} />
+      {isGHPages && (<Redirect exact from="/care-international" to={`/reach/countries/${year ? year : ""}?`}/>)}
+        <Redirect exact from="/" to={`/reach/countries/${year ? year : ""}?`} />
+        <Redirect exact from="/reach" to={`/reach/countries/${year ? year : ""}?`} />
 
-        <Route exact path="/:year/reach/countries" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
-        <Route exact path="/:year/reach/countries/:country?" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
-        <Route exact path="/:year/reach/regions" component={(props) => <AppWrapper mainView="reach" subView="regions" {...props} />} />
-        <Route exact path="/:year/reach/regions/:region?" component={(props) => <AppWrapper mainView="reach" subView="regions" {...props} />} />
+        <Route exact path="/reach/countries/:year?" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
+        <Route exact path="/reach/countries/:year?/:country?" component={(props) => <AppWrapper mainView="reach" subView="countries" {...props} />} />
+        <Route exact path="/reach/regions/:year?" component={(props) => <AppWrapper mainView="reach" subView="regions" {...props} />} />
+        <Route exact path="/reach/regions/:year?/:region?" component={(props) => <AppWrapper mainView="reach" subView="regions" {...props} />} />
         <Route exact path="/impact/story/:story" component={(props) => <AppWrapper mainView="impact" {...props} />} />
         <Route exact path="/impact/:region?/:country?" component={(props) => <AppWrapper mainView="impact" {...props} />} />
         <Route exact path="*" component={(props) => <AppWrapper mainView="notfound" {...props} />} />

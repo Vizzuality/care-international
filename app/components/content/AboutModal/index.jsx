@@ -46,7 +46,7 @@ class AboutContent extends React.Component {
           <div dangerouslySetInnerHTML={{__html: message}} />
         </div>
         <button className="primary" onClick={handleClose}>
-          <Link to={`/${year}/reach/countries`}>
+          <Link to={`/reach/countries/${year}?`}>
               Discover more data
           </Link>
         </button>
