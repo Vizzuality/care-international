@@ -70,6 +70,7 @@ class SidebarArea extends React.Component {
       year: lastYear,
     } = this.props.data;
 
+    console.log(year, years, 'index')
     let {
       handleProgramChange,
       handleAboutDirectReachClick,

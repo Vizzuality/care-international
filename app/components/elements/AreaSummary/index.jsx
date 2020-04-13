@@ -26,8 +26,8 @@ class AreaSummary extends React.Component {
     const selectedYear = e.value;
     this.setState({ year: selectedYear });
     country ?
-      router.history.replace(`/reach/countries/:${selectedYear}?/${country}`)
-      : router.history.replace(`/reach/countries/:${selectedYear}?`);
+      router.history.replace(`/reach/countries/${selectedYear}?/${country}`)
+      : router.history.replace(`/reach/countries/${selectedYear}?`);
   }
 
   render() {
