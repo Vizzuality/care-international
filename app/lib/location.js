@@ -21,16 +21,16 @@ const getLocation = (options) => {
     parts.push(options.subView);
   }
 
+  if (options.year) {
+    parts.push(encodeURIComponent(options.year));
+  }
+
   if (options.region) {
     parts.push(encodeURIComponent(options.region));
   }
 
   if (options.country) {
     parts.push(encodeURIComponent(options.country));
-  }
-
-  if (options.year) {
-    parts.push(encodeURIComponent(options.year));
   }
 
   if (options.story) {
