@@ -13,10 +13,6 @@ const getLocation = (options) => {
   //   parts.push(encodeURIComponent(prefix));
   // }
 
-  if (options.year) {
-    parts.push(encodeURIComponent(options.year));
-  }
-
   if (options.mainView) {
     parts.push(options.mainView);
   }
@@ -31,6 +27,10 @@ const getLocation = (options) => {
 
   if (options.country) {
     parts.push(encodeURIComponent(options.country));
+  }
+
+  if (options.year) {
+    parts.push(encodeURIComponent(options.year));
   }
 
   if (options.story) {
