@@ -142,6 +142,7 @@ const getReachStatisticsRegionsSQL = withEscapedArgs((region, year = 2016) => {
     "true AS has_wee_data",
     "true AS has_srmh_data",
     "true AS has_overall_data",
+
     "SUM(num_fnscc_direct_participants) AS fnscc_direct_participants",
     "SUM(num_fnscc_indirect_participants) AS fnscc_indirect_participants",
     "SUM(num_fnscc_projects_and_initiatives) AS fnscc_projects_and_initiatives",
@@ -186,6 +187,7 @@ const getImpactStatisticsSQL = withEscapedArgs((region, country, year) => {
     "ROUND(SUM(right_to_a_life_free_from_violence)) AS lffv_impact",
     "ROUND(SUM(food_and_nutrition_security_and_resilience_to_climate_change)) AS fnscc_impact",
     "ROUND(SUM(women_s_economic_empowerment)) AS wee_impact",
+    "ROUND(SUM(other_impact)) AS other_impact",
   ];
 
   let query = `SELECT ${fields.join(", ")} FROM impact_data${year}`;
@@ -197,11 +199,10 @@ const getImpactStatisticsSQL = withEscapedArgs((region, country, year) => {
   } else if (region && country) {
     query += ` WHERE country = '${country}' AND region = '${region}'`;
   }
-
   return query;
 });
 
-const getImpactRegionDataSQL = withEscapedArgs((region) => {
+const getImpactRegionDataSQL = withEscapedArgs((region, year) => {
 
   let caseColumn = (caseVariable) => buckets.impact
     .map((bucket, n) => n + 1 < buckets.impact.length ?
@@ -224,6 +225,8 @@ const getImpactRegionDataSQL = withEscapedArgs((region) => {
     `CASE ${caseColumn("SUM(food_and_nutrition_security_and_resilience_to_climate_change)")} END AS fnscc_size`,
     "ROUND(SUM(women_s_economic_empowerment)) AS wee_impact",
     `CASE ${caseColumn("SUM(women_s_economic_empowerment)")} END AS wee_size`,
+    "ROUND(SUM(other_impact)) AS other_impact",
+    `CASE ${caseColumn("SUM(other_impact)")} END AS other_size`,
   ];
 
   if (!region) {
@@ -233,7 +236,7 @@ const getImpactRegionDataSQL = withEscapedArgs((region) => {
   }
 
 
-  let subquery = `SELECT ${subfields.join(", ")} FROM impact_data2018`;
+  let subquery = `SELECT ${subfields.join(", ")} FROM impact_data${year}`;
 
 
   if (!region) {

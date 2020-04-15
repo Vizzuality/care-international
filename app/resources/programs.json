@@ -18,5 +18,9 @@
   {
     "id": "fnscc",
     "label": "Food and nutrition security and climate change resilience"
+  },
+  {
+    "id": "other",
+    "label": "Other impact"
   }
 ]
