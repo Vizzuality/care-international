@@ -178,7 +178,7 @@ const getReachStatisticsRegionsSQL = withEscapedArgs((region, year = 2016) => {
 });
 
 
-const getImpactStatisticsSQL = withEscapedArgs((region, country) => {
+const getImpactStatisticsSQL = withEscapedArgs((region, country, year) => {
   let fields = [
     "ROUND(SUM(total_impact)) AS overall_impact",
     "ROUND(SUM(humanitarian_response)) AS hum_impact",
@@ -188,7 +188,7 @@ const getImpactStatisticsSQL = withEscapedArgs((region, country) => {
     "ROUND(SUM(women_s_economic_empowerment)) AS wee_impact",
   ];
 
-  let query = `SELECT ${fields.join(", ")} FROM impact_data2018`;
+  let query = `SELECT ${fields.join(", ")} FROM impact_data${year}`;
 
   if (country) {
     query += ` WHERE country = '${country}'`;

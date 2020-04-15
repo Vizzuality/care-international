@@ -115,7 +115,7 @@ const fetchReachData = (region, country, year) => {
 
 const fetchImpactData = (region, country, year) => {
   let getStatistics = new window.Promise((resolve, reject) => {
-    cartoSQL.execute(getImpactStatisticsSQL(region, country))
+    cartoSQL.execute(getImpactStatisticsSQL(region, country, year))
       .done((result) => resolve(result.rows[0]))
       .error((error) => reject(error));
   });
