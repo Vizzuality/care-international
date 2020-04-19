@@ -1,26 +1,32 @@
 [
   {
     "id": "hum",
-    "label": "Humanitarian response"
+    "label": "Humanitarian response",
+    "tabs": [ "impact" , "reach"]
   },
   {
     "id": "wee",
-    "label": "Women's economic empowerment"
+    "label": "Women's economic empowerment",
+    "tabs": [ "impact" , "reach"]
   },
   {
     "id": "srmh",
-    "label": "The right to sexual, reproductive and maternal health"
+    "label": "The right to sexual, reproductive and maternal health",
+    "tabs": [ "impact" , "reach"]
   },
   {
     "id": "lffv",
-    "label": "The right to a life free from violence"
+    "label": "The right to a life free from violence",
+    "tabs": [ "impact" , "reach"]
   },
   {
     "id": "fnscc",
-    "label": "Food and nutrition security and climate change resilience"
+    "label": "Food and nutrition security and climate change resilience",
+    "tabs": [ "impact" , "reach"]
   },
   {
     "id": "other",
-    "label": "Other impact"
+    "label": "Other impact",
+    "tabs": [ "impact" ]
   }
 ]

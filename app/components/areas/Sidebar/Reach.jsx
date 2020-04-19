@@ -49,7 +49,10 @@ class ReachSidebarArea extends React.Component {
       router,
     } = this.props;
 
-    const maxValue = Math.max.apply(null, programs.map((p) => {
+    const reachPrograms = programs
+      .filter(program => program.tabs.includes("reach"));
+
+    const maxValue = Math.max.apply(null, reachPrograms.map((p) => {
       let directValue = statistics[`${p.id}_direct_participants`];
       let indirectValue = statistics[`${p.id}_indirect_participants`];
       //let maxValue = directValue + indirectValue;
@@ -57,16 +60,18 @@ class ReachSidebarArea extends React.Component {
     }));
 
     return (<div className="sidebar-content-reach">
+    {program !== 'other' &&
+          <AreaSummary
+          title="Projects and Initiatives in"
+          value={statistics[`${program}_projects_and_initiatives`]}
+          program={program}
+          router={router}
+          country={country}
+          years={years}
+          year={year}
+        />
+    }
 
-      <AreaSummary
-        title="Projects and Initiatives in"
-        value={statistics[`${program}_projects_and_initiatives`]}
-        program={program}
-        router={router}
-        country={country}
-        years={years}
-        year={year}
-      />
       {!(country && program !== "overall") && statistics[`has_${program}_data`] && (<div className="content">
         <dl>
           <dt>
@@ -156,10 +161,10 @@ class ReachSidebarArea extends React.Component {
           </dt>
           <dd>
             <ul>
-              {programs.map((p, n) => {
+              {reachPrograms.map((p, n) => {
                 let directValue = Math.round(statistics[`${p.id}_direct_participants`]);
                 let indirectValue = Math.round(statistics[`${p.id}_indirect_participants`]);
-                 let maxValue = directValue + indirectValue;
+                let maxValue = directValue + indirectValue;
                 return (<li key={n} className={p.id}>
                   <RadioButton
                     id={`radio-${n}`}
