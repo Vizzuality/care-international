@@ -27,7 +27,8 @@ class AppWrapper extends React.Component {
       program: qs.program,
     };
 
-    return (<DataProvider>
+    return (
+    <DataProvider>
       <App navigation={navigation} />
     </DataProvider>);
   }

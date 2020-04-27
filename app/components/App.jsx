@@ -6,7 +6,7 @@ import Layout from "components/Layout";
 import navigationProps from "props/navigation";
 import getLocation from "lib/location";
 import { setKey, getKey } from "lib/storage";
-import { getYears, getLastYear, fetchReachData, fetchImpactData } from "lib/remote";
+import { getYears, fetchReachData, fetchImpactData } from "lib/remote";
 import { boundsDictionary } from "resources/coordinates";
 
 import { logEvent } from "utils/analytics";
@@ -100,11 +100,10 @@ class App extends React.PureComponent {
   }
 
   fetchRemoteData() {
-    let { navigation } = this.props;
+    let { navigation, year } = this.props;
     switch (navigation.mainView) {
       case "reach":
         getYears().then(years => {
-          const year = navigation.year || Math.max.apply(years);
           fetchReachData(navigation.region, navigation.country, year)
             .then(([statistics, bounds]) => {
               this.setState({
@@ -121,20 +120,18 @@ class App extends React.PureComponent {
         );
         break;
       case "impact":
-        getLastYear().then(lastYear =>
-          fetchImpactData(navigation.region, navigation.country, lastYear)
-            .then(([statistics, regions, bounds]) => {
-              this.setState({
-                loading: false,
-                data: {
-                  statistics: statistics,
-                  regions: regions,
-                  bounds: bounds,
-                  year: lastYear,
-                },
-              });
-            })
-        );
+        fetchImpactData(navigation.region, navigation.country, year)
+          .then(([statistics, regions, bounds]) => {
+            this.setState({
+              loading: false,
+              data: {
+                statistics: statistics,
+                regions: regions,
+                bounds: bounds,
+                year: year,
+              },
+            });
+          });
         break;
     }
   }
@@ -156,7 +153,6 @@ class App extends React.PureComponent {
       handleCloseStory: () => this.handleCloseStory(),
       handleToggleModal: (modal) => this.handleToggleModal(modal),
     };
-
     return (<Layout
       loading={this.state.loading}
       navigation={this.props.navigation}

@@ -15,11 +15,11 @@ class DataProvider extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
-      loading: false,
+      loading: true,
       data: {
         texts: {},
         stories: [],
-        years: [],
+        year: "",
       },
     };
   }
@@ -39,6 +39,7 @@ class DataProvider extends React.Component {
             texts,
             stories,
             storiesByCountry,
+            year,
           },
           loading: false,
         });
@@ -47,7 +48,13 @@ class DataProvider extends React.Component {
   }
 
   render() {
-    return !this.state.loading && this.props.children;
+    if (this.state.loading) return null;
+
+    const children = React.Children.map(this.props.children, child =>
+      React.cloneElement(child, { year: this.state.data.year })
+    );
+
+    return <div>{children}</div>;
   }
 
 }
