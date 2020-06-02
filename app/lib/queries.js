@@ -47,7 +47,7 @@ const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
     .join(" ");
   let dataField = program === "overall" ? "data" : `${program}_data`;
   let fields = [
-    "the_geom_webmercator",
+    "g.the_geom_webmercator",
     "country",
     "region",
     `'${program}' AS program`,
@@ -56,7 +56,7 @@ const getReachMapCountriesSQL = withEscapedArgs((program, year = 2016) => {
     "category ILIKE '%member%' AS care_member",
   ];
 
-  return `SELECT ${fields.join(", ")} FROM reach_data${isGHPages ? suffix + "_staging" : suffix} WHERE ${dataField} IS NOT NULL`;
+  return `SELECT ${fields.join(", ")} FROM reach_data${isGHPages ? suffix + "_staging" : suffix} r JOIN gadm36_political_boundaries g ON r.iso = g.gid_0 WHERE ${dataField} IS NOT NULL`;
 
 });
 
